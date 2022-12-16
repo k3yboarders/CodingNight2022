@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using LibraryCodingNight.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryCodingNight.Data
@@ -9,5 +10,6 @@ namespace LibraryCodingNight.Data
             : base(options)
         {
         }
+        public DbSet<ApplicationUser>? ApplicationUser { get; set; }
     }
 }
