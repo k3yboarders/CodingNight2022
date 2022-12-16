@@ -32,12 +32,12 @@
     <div class="space"></div>
     <partial name="_StatusMessage" for="StatusMessage"/>
 
-
+    <h3>Edytuj dane</h3>
     <form id="profile-form" method="post">
         <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3 col">
-                <label asp-for="Username" class="form-label"></label>
+                <label asp-for="Username" class="form-label">Nazwa użytkownika</label>
                 <input asp-for="Username" class="form-control @theme" disabled/>
             </div>
             <div class="mb-3 col">

@@ -1,24 +1,32 @@
 ﻿@page
 @model PersonalDataModel
 @{
-    ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = "Dane osobowe";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
     Layout = "_LayoutProfile";
+}
+
+@section css {
+    <style>
+     .btn {
+	 margin-block: 0.6em;
+     }
+    </style>
 }
 
 <h3>@ViewData["Title"]</h3>
 
 <div class="row">
     <div class="col-md-6">
-        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
+        <p>Twoje konto zawiera dane, które nam przekazałeś/aś w trakcie rejestracji. Ta strona umożliwia ci pobranie i usunięcie tychże danych.</p>
         <p>
-            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+            <strong>Usunięcie tych danych sprawi, że twoje konto zostanie permanentnie usunięte i nie będzie można go odzyskać.</strong>
         </p>
         <form id="download-data" asp-page="DownloadPersonalData" method="post">
-            <button class="btn btn-primary" type="submit">Download</button>
+            <button class="btn btn-primary" type="submit">Pobierz</button>
         </form>
         <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Usuń</a>
         </p>
     </div>
 </div>
