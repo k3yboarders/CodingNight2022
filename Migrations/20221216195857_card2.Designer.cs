@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryCodingNight.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221216195446_card")]
-    partial class card
+    [Migration("20221216195857_card2")]
+    partial class card2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
