@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LibraryCodingNight.Data;
 using LibraryCodingNight.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryCodingNight.Controllers
 {
+    [Authorize(Policy = "RequireAdminRole")]
     public class BookAuthorsController : Controller
     {
         private readonly ApplicationDbContext _context;
