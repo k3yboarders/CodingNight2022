@@ -73,7 +73,7 @@ namespace LibraryCodingNight.Areas.Identity.Pages.Account
                 await _emailSender.SendEmailAsync(
                     Input.Email,
                     "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"Proszę zresetuj swoje hasło <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klikając tutaj</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
