@@ -4,6 +4,8 @@ using MailTest.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using System;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,7 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
 
 var app = builder.Build();
 
@@ -55,3 +58,18 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+public enum Roles
+{
+    SuperAdmin,
+    Admin,
+    Moderator,
+    Basic
+}
+public static class ContextSeed
+{
+
+    public async static Task Main(string[] args)
+    {
+       
+    }
+}

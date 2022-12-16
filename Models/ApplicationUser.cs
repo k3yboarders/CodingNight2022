@@ -11,7 +11,6 @@ namespace LibraryCodingNight.Models
         [PersonalData] public DateTime? BirthDate { get; set; }
 
         [PersonalData] public int ThemeId { get; set; }
-        [PersonalData] public Card? Card { get; set; }
-        [PersonalData] public int CardId { get; set; }
+        [PersonalData] public string Card { get; set; }
     }
 }
