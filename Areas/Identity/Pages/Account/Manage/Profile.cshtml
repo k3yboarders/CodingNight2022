@@ -1,0 +1,92 @@
+@page
+@model ProfileModel
+@using LibraryCodingNight.Models;
+@using Microsoft.AspNetCore.Identity
+@using LibraryCodingNight.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Profil";
+
+    Layout = "_LayoutProfile";
+    ViewData["ActivePage"] = ManageNavPages.Profile;
+    string theme = "";
+    if (SignInManager.IsSignedIn(User))
+    {
+        var applicationUser = await UserManager.GetUserAsync(User);
+        theme = "theme-" + applicationUser.ThemeId;
+            
+    }
+    else
+    {
+        theme = "";
+    }
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    var applicationUser = await UserManager.GetUserAsync(User);
+    var themes = new string[2];
+    themes[0] = "Jasny";
+    themes[1] = "Ciemny";
+    <div class="space"></div>
+    <partial name="_StatusMessage" for="StatusMessage"/>
+
+
+    <form id="profile-form" method="post">
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3 col">
+                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" class="form-control @theme" disabled/>
+            </div>
+            <div class="mb-3 col">
+                <label asp-for="Input.ThemeId" class="form-label"></label>
+                <select asp-for="Input.ThemeId" class="form-control @theme" aria-required="true">
+                    @for (var i = 0; i <= 1; i++)
+                    {
+                        if (i == applicationUser.ThemeId)
+                        {
+                            <option value="@i" selected>@themes[i]</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@themes[i]</option>
+                        }
+                    }
+
+                </select>
+                <span asp-validation-for="Input.ThemeId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label asp-for="Input.FirstName" class="form-label"></label>
+                <input asp-for="Input.FirstName" class="form-control @theme" aria-required="true" value="@applicationUser.FirstName"/>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 col">
+                <label asp-for="Input.LastName" class="form-label"></label>
+                <input asp-for="Input.LastName" class="form-control @theme" aria-required="true" value="@applicationUser.LastName"/>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+        </div> <!--
+        <div class="row">
+
+            <div class="mb-3 col">
+                <label asp-for="Input.BirthDate" class="form-label"></label>
+                <input asp-for="Input.BirthDate" class="form-control @theme" aria-required="true" value="@applicationUser.BirthDate"/>
+                <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+            </div>
+      </div>           -->
+        <div class="row w-25" style="margin: auto;">
+          <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-success">Zatwierdź</button>
+        </div>
+    </form>
+}
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

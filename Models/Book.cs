@@ -29,6 +29,6 @@ namespace LibraryCodingNight.Models
         public List<Author>? Authors { get; set; }
 
         public Serie? Serie { get; set; }
-        public int SerieId { get; set; }
+        public int? SerieId { get; set; }
     }
 }
