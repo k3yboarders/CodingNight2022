@@ -10,8 +10,9 @@ namespace LibraryCodingNight.Models
         [Column(TypeName = "varchar(50)")]
         public string AuthorFirstName { get; set; }
         [Column(TypeName = "varchar(50)")]
-        public string AuthorLastName { get; set; }
-        public BookAuthor? BookAuthor { get; set; }
+        public string AuthorLastName { get; set; }       
+
+        public List<Book>? Books { get; set; }
 
     }
 }

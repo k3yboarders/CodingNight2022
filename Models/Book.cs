@@ -26,7 +26,7 @@ namespace LibraryCodingNight.Models
         [Column(TypeName = "text")]
         public string? Description { get; set; }
 
-        public BookAuthor? BookAuthor { get; set; }
+        public List<Author>? Authors { get; set; }
 
         public Serie? Serie { get; set; }
         public int SerieId { get; set; }

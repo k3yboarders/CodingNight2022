@@ -3,6 +3,7 @@ using System;
 using LibraryCodingNight.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryCodingNight.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221216185706_author")]
+    partial class author
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace LibraryCodingNight.Migrations
 
                     b.HasIndex("BookAuthorId");
 
-                    b.ToTable("Author", (string)null);
+                    b.ToTable("Author");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.Book", b =>
@@ -89,7 +91,7 @@ namespace LibraryCodingNight.Migrations
 
                     b.HasIndex("SerieId");
 
-                    b.ToTable("Book", (string)null);
+                    b.ToTable("Book");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.BookAuthor", b =>
@@ -100,7 +102,7 @@ namespace LibraryCodingNight.Migrations
 
                     b.HasKey("BookAuthorId");
 
-                    b.ToTable("BookAuthor", (string)null);
+                    b.ToTable("BookAuthor");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.Genre", b =>
@@ -115,7 +117,7 @@ namespace LibraryCodingNight.Migrations
 
                     b.HasKey("GenreId");
 
-                    b.ToTable("Genre", (string)null);
+                    b.ToTable("Genre");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.Publisher", b =>
@@ -134,7 +136,7 @@ namespace LibraryCodingNight.Migrations
 
                     b.HasKey("PublisherId");
 
-                    b.ToTable("Publisher", (string)null);
+                    b.ToTable("Publisher");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.Serie", b =>
@@ -145,7 +147,7 @@ namespace LibraryCodingNight.Migrations
 
                     b.HasKey("SerieId");
 
-                    b.ToTable("Serie", (string)null);
+                    b.ToTable("Serie");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
