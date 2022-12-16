@@ -8,23 +8,32 @@ using Microsoft.EntityFrameworkCore;
 using LibraryCodingNight.Data;
 using LibraryCodingNight.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using LibraryCodingNight.Migrations;
 
 namespace LibraryCodingNight.Controllers
 {
-    [Authorize(Policy = "RequireAdminRole")]
     public class BookAuthorsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public BookAuthorsController(ApplicationDbContext context)
+        UserManager<ApplicationUser> UserManager;
+        public BookAuthorsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            UserManager = userManager;
         }
 
         // GET: BookAuthors
         public async Task<IActionResult> Index()
         {
-              return View(await _context.BookAuthor.ToListAsync());
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(await _context.BookAuthor.ToListAsync());
+            }
+            else
+                return NotFound();
+
         }
 
         // GET: BookAuthors/Details/5
@@ -41,14 +50,27 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(bookAuthor);
+            }
+            else
+                return NotFound();
 
-            return View(bookAuthor);
+
         }
 
         // GET: BookAuthors/Create
-        public IActionResult Create()
+        public async Task <IActionResult> Create()
         {
-            return View();
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View();
+            }
+            else
+                return NotFound();
         }
 
         // POST: BookAuthors/Create
@@ -64,7 +86,13 @@ namespace LibraryCodingNight.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(bookAuthor);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(bookAuthor);
+            }
+            else
+                return NotFound();
         }
 
         // GET: BookAuthors/Edit/5
@@ -80,7 +108,13 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
-            return View(bookAuthor);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(bookAuthor);
+            }
+            else
+                return NotFound();
         }
 
         // POST: BookAuthors/Edit/5
@@ -115,7 +149,13 @@ namespace LibraryCodingNight.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(bookAuthor);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(bookAuthor);
+            }
+            else
+                return NotFound();
         }
 
         // GET: BookAuthors/Delete/5
@@ -133,7 +173,13 @@ namespace LibraryCodingNight.Controllers
                 return NotFound();
             }
 
-            return View(bookAuthor);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(bookAuthor);
+            }
+            else
+                return NotFound();
         }
 
         // POST: BookAuthors/Delete/5

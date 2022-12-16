@@ -13,6 +13,6 @@ namespace LibraryCodingNight.Models
         [PersonalData] public int ThemeId { get; set; }
         [PersonalData] public string Card { get; set; }
         public int RoleId { get; set; }
-        public Role? Role { get; set; }
+        public ApplicationRole? ApplicationRole { get; set; }
     }
 }

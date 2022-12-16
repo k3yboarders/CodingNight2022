@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace LibraryCodingNight.Controllers
 {
-    [Authorize(Policy = "RequireStudentRole")]
     public class StudentController : Controller
     {
         private readonly ApplicationDbContext _context;

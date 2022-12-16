@@ -17,6 +17,7 @@ namespace LibraryCodingNight.Data
         public DbSet<Publisher>? Publisher { get; set; }
         public DbSet<BookAuthor>? BookAuthor { get; set; }
         public DbSet<Genre>? Genre { get; set; }
+        public DbSet<LibraryCodingNight.Models.ApplicationRole> ApplicationRole { get; set; }
 
 
     }
