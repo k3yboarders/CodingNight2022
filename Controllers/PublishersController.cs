@@ -8,23 +8,33 @@ using Microsoft.EntityFrameworkCore;
 using LibraryCodingNight.Data;
 using LibraryCodingNight.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Policy;
+using Publisher = LibraryCodingNight.Models.Publisher;
 
 namespace LibraryCodingNight.Controllers
 {
-    [Authorize(Policy = "RequireAdminRole")]
     public class PublishersController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PublishersController(ApplicationDbContext context)
+        UserManager<ApplicationUser> UserManager;
+        public PublishersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            UserManager = userManager;
         }
-
         // GET: Publishers
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Publisher.ToListAsync());
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(await _context.Publisher.ToListAsync());
+            }
+            else
+                return NotFound();
+
+
         }
 
         // GET: Publishers/Details/5
@@ -42,13 +52,25 @@ namespace LibraryCodingNight.Controllers
                 return NotFound();
             }
 
-            return View(publisher);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(publisher);
+            }
+            else
+                return NotFound();
         }
 
         // GET: Publishers/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View();
+            }
+            else
+                return NotFound();
         }
 
         // POST: Publishers/Create
@@ -64,7 +86,14 @@ namespace LibraryCodingNight.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(publisher);
+
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(publisher);
+            }
+            else
+                return NotFound();
         }
 
         // GET: Publishers/Edit/5
@@ -80,7 +109,14 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
-            return View(publisher);
+
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(publisher);
+            }
+            else
+                return NotFound();
         }
 
         // POST: Publishers/Edit/5
@@ -115,7 +151,14 @@ namespace LibraryCodingNight.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(publisher);
+
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(publisher);
+            }
+            else
+                return NotFound();
         }
 
         // GET: Publishers/Delete/5
@@ -133,7 +176,14 @@ namespace LibraryCodingNight.Controllers
                 return NotFound();
             }
 
-            return View(publisher);
+
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(publisher);
+            }
+            else
+                return NotFound();
         }
 
         // POST: Publishers/Delete/5

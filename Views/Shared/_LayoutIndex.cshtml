@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,19 +23,38 @@
                 <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
                     <li class="nav-item"><a class="nav-link me-lg-3" href="#features">Cechy</a></li>
                     <li class="nav-item"><a class="nav-link me-lg-3" href="#about-us">O nas</a></li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var applicationUser = await UserManager.GetUserAsync(User);
+                        <li class="nav-item">
+                            <a class="nav-link me-lg-3" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Witaj @applicationUser.FirstName @applicationUser.LastName!</a>
+                        </li>
+                        <li class="nav-item">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="nav-link btn btn-link text-dark">Wyloguj się</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <a class="btn border border-1 rounded-pill px-2 mb-2 mb-lg-0 me-2" asp-area="Identity" asp-page="/Account/Login">
+                            <span class="d-flex align-items-center">
+                                <i class="bi bi-house-door-fill me-2"></i>
+                                <span class="small">Zaloguj się</span>
+                            </span>
+                        </a>
+                        <a class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" asp-area="Identity" asp-page="/Account/Register">
+                            <span class="d-flex align-items-center">
+                                <i class="bi bi-door-open-fill me-2"></i>
+                                <span class="small">Zarejestruj się</span>
+                            </span>
+                        </a>
+                    }
                 </ul>
-                <a class="btn border border-1 rounded-pill px-2 mb-2 mb-lg-0 me-2" href="/Identity/Account/Login">
-                    <span class="d-flex align-items-center">
-                        <i class="bi bi-house-door-fill me-2"></i>
-                        <span class="small">Zaloguj się</span>
-                    </span>
-                </a>
-                <a class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" href="/Identity/Account/Register">
-                    <span class="d-flex align-items-center">
-                        <i class="bi bi-door-open-fill me-2"></i>
-                        <span class="small">Zarejestruj się</span>
-                    </span>
-                </a>
+                
+               
+
+
             </div>
         </div>
     </nav>

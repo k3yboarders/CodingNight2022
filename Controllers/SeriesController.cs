@@ -8,23 +8,33 @@ using Microsoft.EntityFrameworkCore;
 using LibraryCodingNight.Data;
 using LibraryCodingNight.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace LibraryCodingNight.Controllers
 {
-    [Authorize(Policy = "RequireAdminRole")]
     public class SeriesController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public SeriesController(ApplicationDbContext context)
+        UserManager<ApplicationUser> UserManager;
+        public SeriesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            UserManager = userManager;
         }
 
         // GET: Series
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Serie.ToListAsync());
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(await _context.Serie.ToListAsync());
+            }
+            else
+                return NotFound();
+
+
+
         }
 
         // GET: Series/Details/5
@@ -41,8 +51,16 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(serie);
+            }
+            else
+                return NotFound();
 
-            return View(serie);
+
+
         }
 
         // GET: Series/Create
@@ -64,7 +82,14 @@ namespace LibraryCodingNight.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(serie);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(serie);
+            }
+            else
+                return NotFound();
+
         }
 
         // GET: Series/Edit/5
@@ -80,7 +105,14 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
-            return View(serie);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(serie);
+            }
+            else
+                return NotFound();
+
         }
 
         // POST: Series/Edit/5
@@ -115,7 +147,14 @@ namespace LibraryCodingNight.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(serie);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(serie);
+            }
+            else
+                return NotFound();
+
         }
 
         // GET: Series/Delete/5
@@ -132,8 +171,14 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(serie);
+            }
+            else
+                return NotFound();
 
-            return View(serie);
         }
 
         // POST: Series/Delete/5

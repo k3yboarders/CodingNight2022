@@ -8,23 +8,31 @@ using Microsoft.EntityFrameworkCore;
 using LibraryCodingNight.Data;
 using LibraryCodingNight.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace LibraryCodingNight.Controllers
 {
-    [Authorize(Policy = "RequireAdminRole")]
     public class GenresController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public GenresController(ApplicationDbContext context)
+        UserManager<ApplicationUser> UserManager;
+        public GenresController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            UserManager = userManager;
         }
 
         // GET: Genres
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Genre.ToListAsync());
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(await _context.Genre.ToListAsync());
+            }
+            else
+                return NotFound();
+
         }
 
         // GET: Genres/Details/5
@@ -41,8 +49,14 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(genre);
+            }
+            else
+                return NotFound();
 
-            return View(genre);
         }
 
         // GET: Genres/Create
@@ -64,7 +78,13 @@ namespace LibraryCodingNight.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(genre);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(genre);
+            }
+            else
+                return NotFound();
         }
 
         // GET: Genres/Edit/5
@@ -80,7 +100,13 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
-            return View(genre);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(genre);
+            }
+            else
+                return NotFound();
         }
 
         // POST: Genres/Edit/5
@@ -115,7 +141,13 @@ namespace LibraryCodingNight.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(genre);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(genre);
+            }
+            else
+                return NotFound();
         }
 
         // GET: Genres/Delete/5
@@ -133,7 +165,13 @@ namespace LibraryCodingNight.Controllers
                 return NotFound();
             }
 
-            return View(genre);
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                return View(genre);
+            }
+            else
+                return NotFound();
         }
 
         // POST: Genres/Delete/5
