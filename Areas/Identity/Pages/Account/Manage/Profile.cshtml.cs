@@ -66,7 +66,7 @@ namespace LibraryCodingNight.Areas.Identity.Pages.Account.Manage
             
             [PersonalData]
             [Display(Name = "Data urodzenia")]
-            public DateTime? BirthDate { get; set; }
+            public DateOnly? BirthDate { get; set; }
 
             [PersonalData]
             [Display(Name = "Motyw")]
