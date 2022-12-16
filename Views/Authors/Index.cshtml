@@ -1,0 +1,41 @@
+﻿@model IEnumerable<LibraryCodingNight.Models.Author>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorLastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorLastName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AuthorId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AuthorId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AuthorId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
