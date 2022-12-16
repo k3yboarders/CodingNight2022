@@ -3,6 +3,7 @@ using System;
 using LibraryCodingNight.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryCodingNight.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221216210547_phonenumber")]
+    partial class phonenumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,6 +118,21 @@ namespace LibraryCodingNight.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("BookAuthor");
+                });
+
+            modelBuilder.Entity("LibraryCodingNight.Models.Card", b =>
+                {
+                    b.Property<int>("CardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("CardId");
+
+                    b.ToTable("Card");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.Genre", b =>
@@ -379,9 +396,8 @@ namespace LibraryCodingNight.Migrations
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Card")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -393,6 +409,8 @@ namespace LibraryCodingNight.Migrations
 
                     b.Property<int>("ThemeId")
                         .HasColumnType("int");
+
+                    b.HasIndex("CardId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -493,6 +511,22 @@ namespace LibraryCodingNight.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LibraryCodingNight.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("LibraryCodingNight.Models.Card", "Card")
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+                });
+
+            modelBuilder.Entity("LibraryCodingNight.Models.Card", b =>
+                {
+                    b.Navigation("ApplicationUsers");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.Genre", b =>

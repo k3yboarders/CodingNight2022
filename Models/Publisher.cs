@@ -9,6 +9,6 @@ namespace LibraryCodingNight.Models
         public string PublisherName { get; set; }
 
         [Column(TypeName = "varchar(20)")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }
