@@ -1,0 +1,54 @@
+﻿@model IEnumerable<LibraryCodingNight.Models.Reservation>
+
+@{
+    ViewData["Title"] = "GetReservations";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Rezerwacje uczniów</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+                        <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfReserve)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActual)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.FirstName)
+            </td>            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfReserve)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActual)
+            </td>
+            <td>
+                    <a asp-action="DeleteConfirmed" asp-route-id="@item.ReservationId">Usuń</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

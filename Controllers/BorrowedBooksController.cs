@@ -22,7 +22,7 @@ namespace LibraryCodingNight.Controllers
         // GET: BorrowedBooks
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.BorrowedBook.Include(b => b.Book);
+            var applicationDbContext = _context.BorrowedBook.Include(b => b.Book).Include(b => b.ApplicationUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace LibraryCodingNight.Controllers
             }
 
             var borrowedBook = await _context.BorrowedBook
-                .Include(b => b.Book)
+                .Include(b => b.Book).Include(b => b.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.BorrowedBookId == id);
             if (borrowedBook == null)
             {
@@ -48,7 +48,7 @@ namespace LibraryCodingNight.Controllers
         // GET: BorrowedBooks/Create
         public IActionResult Create()
         {
-            ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookId");
+            ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookName");
             return View();
         }
 
@@ -65,7 +65,8 @@ namespace LibraryCodingNight.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookId", borrowedBook.BookId);
+            ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookName");
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "ApplicationUserId", "LastName");
             return View(borrowedBook);
         }
 
@@ -82,7 +83,8 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookId", borrowedBook.BookId);
+            ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookName", borrowedBook.BookId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "ApplicationUserId", "LastName", borrowedBook.ApplicationUserId);
             return View(borrowedBook);
         }
 
@@ -118,7 +120,8 @@ namespace LibraryCodingNight.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookId", borrowedBook.BookId);
+            ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookName", borrowedBook.BookId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "ApplicationUserId", "LastName", borrowedBook.ApplicationUserId);
             return View(borrowedBook);
         }
 

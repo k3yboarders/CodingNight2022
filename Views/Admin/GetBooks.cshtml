@@ -2,14 +2,33 @@
 
 @{
     ViewData["Title"] = "GetBooks";
-    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+    Layout = "_LayoutAdmin";
+    string[] Categories = { "Kategoria", "Tytuł", "Autor", "ISBN", "Gatunek", "Seria" };
 }
 
-<h1>GetBooks</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form asp-controller="Student" asp-action="AllBooks" method="post">
+    <div class="form-control search-bar d-flex align-content-center mb-3">
+        <label class="btn border-0 py-1 px-2" for="submit-btn">
+            <i class="bi bi-search-heart-fill"></i>
+        </label>
+        <input class="d-none" type="submit" value="Szukaj" id="submit-btn" />
+        <input type="text" class="form-control border-0 w-100 mx-2" type="search" placeholder="Szukaj" aria-label="Search" name="searchString" value="@ViewBag.searchString">
+        <select class="btn rounded-3 bg-light" name="category">
+            @for (int i = 0; i < Categories.Length; i++)
+            {
+                @if (i == ViewBag.SelectedItem)
+                {
+                    <option selected value="@i">@Categories[i]</option>
+                }
+                else
+                {
+                    <option value="@i">@Categories[i]</option>
+                }
+            }
+        </select>
+    </div>
+</form>
+<h3>Znaleziono: @ViewBag.Count książek</h3>
 <table class="table">
     <thead>
         <tr>
@@ -18,9 +37,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PageNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ISBN)
@@ -33,9 +49,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Author)
@@ -53,16 +66,13 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Publisher.PublisherId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PageNumber)
+                @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ISBN)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Genre.GenreId)
+                @Html.DisplayFor(modelItem => item.Genre.GenreName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishDate)
@@ -71,17 +81,14 @@
                 @Html.DisplayFor(modelItem => item.IsAvailable)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Author.AuthorName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Author.AuthorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Serie.SerieId)
+                @Html.DisplayFor(modelItem => item.Serie.SerieName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
+                    <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
             </td>
         </tr>
