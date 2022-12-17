@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Zaproponuj książkę do zakupu</h1>
 
-<h4>SuggestedBook</h4>
+<h4>Sugerowana książka</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,14 +23,14 @@
                 <input asp-for="SuggesteBookAuthor" class="form-control" />
                 <span asp-validation-for="SuggesteBookAuthor" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mt-2">
+                <input type="submit" value="Zasugeruj" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-2">
+    <a asp-action="Index">Wróć do listy</a>
 </div>
 
