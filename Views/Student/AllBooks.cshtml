@@ -7,10 +7,11 @@
 }
 <form asp-controller="Student" asp-action="AllBooks" method="post">
 	<div class="form-control search-bar d-flex align-content-center mb-3">
-		<button class="btn border-0 py-1 px-2" type="submit">
+		<label class="btn border-0 py-1 px-2" for="submit-btn">
 			<i class="bi bi-search-heart-fill"></i>
-		</button>
-		<input type="text" class="form-control border-0 w-100 mx-2" type="search" placeholder="Szukaj" aria-label="Search">
+		</label>
+		<input class="d-none" type="submit" value="Szukaj" id="submit-btn" />
+		<input type="text" class="form-control border-0 w-100 mx-2" type="search" placeholder="Szukaj" aria-label="Search" name="searchString" value="@ViewBag.searchString">
 		<select class="btn rounded-3 bg-light" name="category">
 			@for (int i = 0; i < Categories.Length; i++)
 			{
