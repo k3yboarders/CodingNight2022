@@ -22,8 +22,7 @@
             </p>
         </li>
         <li>
-            <p>Zeskanuj kod QR lub wprowadź ten klucz <kbd>@Model.SharedKey</kbd> do aplikacji do uwierzytelniania dwuskładnikowego. Spacje i wielkość liter nie mają znaczenia.</p>
-            <div class="alert alert-info">Dowiedz się jak <a href="https://go.microsoft.com/fwlink/?Linkid=852423"></a>włączyć generowanie kodu QR.</div>
+            <p>Zeskanuj kod QR lub wpisz ten klucz <kbd>@Model.SharedKey</kbd> w swojej aplikacji do uwierzytelniania dwuskładnikowego. Spacje nie mają znaczenia.</p>
             <div id="qrCode"></div>
             <div id="qrCodeData" data-url="@Model.AuthenticatorUri"></div>
         </li>
@@ -35,20 +34,21 @@
             <div class="row">
                 <div class="col-md-6">
                     <form id="send-code" method="post">
-                        <div class="form-floating">
+                        <div class="mb-3">
+                            <label asp-for="Input.Code" class="control-label form-label">Kod weryfikacyjny</label>
                             <input asp-for="Input.Code" class="form-control" autocomplete="off" />
-                            <label asp-for="Input.Code" class="control-label form-label">Verification Code</label>
                             <span asp-validation-for="Input.Code" class="text-danger"></span>
                         </div>
-                        <button type="submit" class="w-100 btn btn-lg btn-primary">Verify</button>
+                        <button type="submit" class="w-100 btn btn-lg btn-success">Zweryfikuj</button>
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     </form>
                 </div>
-            </div>
         </li>
     </ol>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script type="text/javascript" src="~/js/qr.js"></script>
 }

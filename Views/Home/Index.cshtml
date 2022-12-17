@@ -6,29 +6,31 @@
     <link rel="stylesheet" href="~/css/bgimage.css" />
 }
 
-<header class="masthead bg-image bg-blur pb-lg-5">
-    <div class="container px-5 pt-3">
-        <div class="row gx-5 align-items-center">
-            <div class="col-lg-6">
-                <div class="text-white mb-5 mb-lg-0 text-center text-lg-start">
-                    <h1 class="display-1 fw-bold lh-1 mb-3">LibraryCN</h1>
-                    <p class="lead fw-normal fw-bold mb-5">Zarządzanie biblioteką nigdy nie było łatwiejsze! Dzięki naszej nowoczesnej i wygodnej aplikacji webowej będziesz w stanie łatwo i szybko obsłużyć każdego czytelnika!</p>
+
+   
+    <header class="masthead bg-image bg-blur pb-lg-5">
+        <div class="container px-5 pt-3">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="text-white mb-5 mb-lg-0 text-center text-lg-start">
+                        <h1 class="display-1 fw-bold lh-1 mb-3">LibraryCN</h1>
+                        <p class="lead fw-normal fw-bold mb-5">@ViewBag.Quote</p>
+                        <h3>@ViewBag.Author</h3>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex justify-content-center">
+                    <img src="/assets/img/LibraryCN.png" />
                 </div>
             </div>
-            <div class="col-lg-6 d-flex justify-content-center">
-                <img src="/assets/img/LibraryCN.png"/>
-            </div>
         </div>
-    </div>
-</header>
-
+    </header>
 
 <section class="bg-light py-lg-5" id="features">
     <div class="container p-5">
         <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between d-flex flex-row-reverse text-end">
             <div class="col-8 col-lg-5">
                 <h2 class="display-4 fw-bolder lh-1 mb-4">Nowy poziom zarządzania biblioteką</h2>
-                <p class="lead fw-normal text-muted mb-5 mb-lg-0">Większość dotychczasowych aplikacji służących zarządzaniu biblioteką mimo swojej użyteczności, jest po prostu brzydka. Tutaj pojawia się LibraryCN! Łączy ogromną użyteczność i nieskazitelne piękno.</p>
+                <p class="lead fw-normal text-muted mb-5 mb-lg-0">Zarządzanie biblioteką nigdy nie było łatwiejsze! Dzięki naszej nowoczesnej i wygodnej aplikacji webowej będziesz w stanie łatwo i szybko obsłużyć każdego czytelnika!</p>
             </div>
             <div class="col-8 col-md-6">
                 <div class="px-5 px-sm-0"><img class="img-fluid rounded-4" src="~/assets/img/book.jpg"/></div>
@@ -42,7 +44,8 @@
         <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
             <div class="col-12 col-lg-5">
                 <h2 class="display-4 fw-bolder lh-1 mb-4">Sprawdzeni twórcy</h2>
-                <p class="lead fw-normal text-muted mb-5 mb-lg-0">Jest to kolejne dzieło grupy k3yboarders, która w 2021 roku na wydarzeniu Coding Night zdobyła 2 miejsce za stworzoną przez siebie grę.</p>
+                    <p class="lead fw-normal text-muted mb-5 mb-lg-0">Jest to kolejne dzieło grupy k3yboarders, która w 2021 roku na wydarzeniu Coding Night (pod nazwą MTSM) zdobyła 2 miejsce za stworzoną przez siebie grę Magic Tournament o tematyce Harrego Pottera. Jako zespół bardzo cenimy sobie wolne (<em>ang. Free as in freedom</em>) oprogramowanie oraz szanujemy prywatność naszych użytkowników. Nasze projekty można znaleźć na naszym profilu w serwisie GitHub. 
+                         Jesteśmy młodą, dynamiczną drużyną. W skład k3yboarders na ten moment wchodzi grupa 4 osób (Maksymilian Gala, Tomasz Kulig, Seweryn Pajor, Marcin Górowski).
             </div>
             <div class="col-8 col-md-6">
                 <div class="px-5 px-sm-0"><img class="img-fluid rounded-4" src="~/assets/img/k3yboarders.png" alt="..." /></div>
