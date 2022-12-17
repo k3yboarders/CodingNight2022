@@ -1,15 +1,15 @@
 ﻿@model LibraryCodingNight.Models.Genre
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Usuń";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Delete</h1>
+<h1>Usuń</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Czy jesteś pewien że chcesz to usunąć?</h3>
 <div>
-    <h4>Genre</h4>
+    <h4>Gatunek</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -23,6 +23,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="GenreId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">Powrót do listy</a>
     </form>
 </div>
