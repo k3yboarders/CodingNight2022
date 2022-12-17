@@ -25,6 +25,7 @@ namespace LibraryCodingNight.Controllers
         {
 
             var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie).Include(b => b.Publisher).Include(b => b.Author);
+            ViewBag.Count = applicationDbContext.Count();
             return View(await applicationDbContext.ToListAsync());
         }
         public async Task<IActionResult> Details(int? id)
@@ -59,22 +60,28 @@ namespace LibraryCodingNight.Controllers
                     case 2:
                         books = books.Where(b => b.Author.AuthorName!.Contains(searchString));
                         ViewBag.SelectedItem = 2;
+                        ViewBag.Count = books.Count();
                         break;             
                     case 3:
-                        books = books.Where(b => b.ISBN!.Contains(searchString));
+                            books = books.Where(b => b.ISBN!.Contains(searchString));
                         ViewBag.SelectedItem = 3;
+                        ViewBag.Count = books.Count();
                         break;                   
                     case 4:
-                        books = books.Where(b => b.Genre.GenreName!.Contains(searchString));
+                            books = books.Where(b => b.Genre.GenreName!.Contains(searchString));
+
                         ViewBag.SelectedItem = 4;
+                        ViewBag.Count = books.Count();
                         break;      
                     case 5:
-                        books = books.Where(b => b.Serie.SerieName!.Contains(searchString));
+                            books = books.Where(b => b.Serie.SerieName!.Contains(searchString));
                         ViewBag.SelectedItem = 5;
+                        ViewBag.Count = books.Count();
                         break;
                     default:
-                        books = books.Where(b => b.Title!.Contains(searchString));
+                            books = books.Where(b => b.Title!.Contains(searchString));
                         ViewBag.SelectedItem = 1;
+                        ViewBag.Count = books.Count();
                         break;
                 }
 

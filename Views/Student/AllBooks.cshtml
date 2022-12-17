@@ -5,9 +5,10 @@
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
     string[] Categories = {"Wybierz kategorię", "Tytuł", "Autor", "ISBN", "Gatunek", "Seria" };
 }
-<form asp-controller="Student" asp-action="AllBooks">
-    <p>
-        <select name="category">
+<form asp-controller="Student" asp-action="AllBooks" method="post">
+    <div class="row">
+<div class="mb-3 col">
+        <select class="form-control w-25" name="category">
 @for (int i = 0; i < Categories.Length; i++) {
                 @if (i == ViewBag.SelectedItem) {
                     <option selected value="@i">@Categories[i]</option>
@@ -18,12 +19,19 @@
 }
 
         </select>
+        </div>
+        <div class="mb-3 col">
+        <input class="form-control w-25" type="text" name="searchString" value="@ViewBag.searchString" />
+    </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <input class="btn btn-lg btn-success w-50" type="submit" value="Szukaj" />
+</div>
+</div>
 
-        <input type="text" name="searchString" value="@ViewBag.searchString" />
-        <input type="submit" value="Szukaj" />
-    </p>
 </form>
-
+<h3>Znaleziono: @ViewBag.Count książek</h3>
 <table class="table">
     <thead>
         <tr>
@@ -61,16 +69,10 @@
                 @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PageNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Genre.GenreName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublishDate)
+                @Html.DisplayFor(modelItem => item.PublishDate.Year)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsAvailable)
@@ -83,7 +85,7 @@
             </td>
             <td>
                 <a asp-controller="Student" asp-action="Details" asp-route-id="@item.BookId">Szczegóły</a> |
-                <a asp-route-id="@item.BookId">Zarezerwuj</a> |
+                <a asp-route-id="@item.BookId">Zarezerwuj</a>
             </td>
         </tr>
 }
