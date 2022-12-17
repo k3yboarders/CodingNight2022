@@ -90,7 +90,7 @@ namespace LibraryCodingNight.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Data urodzenia")]
             [DataType(DataType.Date)]
-            public DateOnly BirthDate { get; set; }
+            public DateTime BirthDate { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -126,7 +126,9 @@ namespace LibraryCodingNight.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
+		if (Input.FirstName != user.FirstName) user.FirstName = Input.FirstName;
+		if (Input.LastName != user.LastName) user.LastName = Input.LastName;
+		if(user.BirthDate != Input.BirthDate) user.BirthDate = Input.BirthDate;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);

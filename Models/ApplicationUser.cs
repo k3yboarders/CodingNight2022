@@ -9,7 +9,7 @@ namespace LibraryCodingNight.Models
         [PersonalData] public string LastName { get; set; } = "";
 
         
-        [PersonalData] public DateOnly? BirthDate { get; set; }
+        [PersonalData] public DateTime? BirthDate { get; set; }
 
         [PersonalData] public int ThemeId { get; set; }
         [PersonalData] public string Card { get; set; }

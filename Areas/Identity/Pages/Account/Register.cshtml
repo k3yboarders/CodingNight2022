@@ -24,7 +24,10 @@
                             <input asp-for="Input.LastName" class="form-control" aria-required="true" placeholder="Nazwisko"/>
                             <span asp-validation-for="Input.LastName" class="text-danger"></span>
                         </div>
-                        
+                        <div class="mb-3">
+                            <input asp-for="Input.BirthDate" class="form-control" aria-required="true" placeholder="Data urodzenia"/>
+                            <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+                        </div>
                         <div class="mb-3">
                             <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Hasło"/>
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
