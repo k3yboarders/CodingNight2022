@@ -1,20 +1,20 @@
 ﻿@model IEnumerable<LibraryCodingNight.Models.Author>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Autorzy";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Autorzy</h1>
 
 <p>
-    <a asp-action="Create">Stwórz nowy</a>
+    <a asp-action="Create">Dodaj nowego</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorName)
+		Imię i nazwisko
             </th>
             <th></th>
         </tr>
@@ -34,3 +34,4 @@
 }
     </tbody>
 </table>
+

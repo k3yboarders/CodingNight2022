@@ -20,7 +20,7 @@ namespace LibraryCodingNight.Models
 
         [PersonalData] public int ThemeId { get; set; }
         [PersonalData] public string Card { get; set; }
-        public int RoleId { get; set; }
+        public int RoleId { get; set; } = 2;
         public ApplicationRole? ApplicationRole { get; set; }
         public List<Reservation>? Reservations { get; set; }
         public List<BorrowedBook>? BorrowedBooks { get; set; }
