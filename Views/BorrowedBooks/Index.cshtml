@@ -1,0 +1,54 @@
+﻿@model IEnumerable<LibraryCodingNight.Models.BorrowedBook>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowedFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowedTo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.BookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowedFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowedTo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BorrowedBookId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BorrowedBookId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BorrowedBookId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

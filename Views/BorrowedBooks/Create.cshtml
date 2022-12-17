@@ -1,0 +1,45 @@
+﻿@model LibraryCodingNight.Models.BorrowedBook
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>BorrowedBook</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ApplicationUserId" class="control-label"></label>
+                <input asp-for="ApplicationUserId" class="form-control" />
+                <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookId" class="control-label"></label>
+                <select asp-for="BookId" class ="form-control" asp-items="ViewBag.BookId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BorrowedFrom" class="control-label"></label>
+                <input asp-for="BorrowedFrom" class="form-control" />
+                <span asp-validation-for="BorrowedFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BorrowedTo" class="control-label"></label>
+                <input asp-for="BorrowedTo" class="form-control" />
+                <span asp-validation-for="BorrowedTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
