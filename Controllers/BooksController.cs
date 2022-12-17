@@ -51,7 +51,7 @@ namespace LibraryCodingNight.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorId");
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
             ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
             ViewData["PublisherId"] = new SelectList(_context.Publisher, "PublisherId", "PublisherName");
             ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");

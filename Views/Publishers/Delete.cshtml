@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Usuń";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h1>Usuń</h1>
@@ -27,7 +28,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="PublisherId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Usuń" class="btn btn-danger" /> |
         <a asp-action="Index">Powrót do listy</a>
     </form>
 </div>
