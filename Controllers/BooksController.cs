@@ -7,26 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LibraryCodingNight.Data;
 using LibraryCodingNight.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace LibraryCodingNight.Controllers
 {
-
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
-        UserManager<ApplicationUser> UserManager;
-        public BooksController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+
+        public BooksController(ApplicationDbContext context)
         {
             _context = context;
-            UserManager = userManager;
         }
 
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie).Include(b => b.Publisher).Include(b => b.Author);
+            var applicationDbContext = _context.Book.Include(b => b.Author).Include(b => b.Genre).Include(b => b.Publisher).Include(b => b.Serie);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -39,9 +35,10 @@ namespace LibraryCodingNight.Controllers
             }
 
             var book = await _context.Book
+                .Include(b => b.Author)
                 .Include(b => b.Genre)
-                .Include(b => b.Serie).Include(b => b.Publisher)
-                                 .Include(b => b.Author)
+                .Include(b => b.Publisher)
+                .Include(b => b.Serie)
                 .FirstOrDefaultAsync(m => m.BookId == id);
             if (book == null)
             {
@@ -50,22 +47,15 @@ namespace LibraryCodingNight.Controllers
 
             return View(book);
         }
+
         // GET: Books/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorId");
             ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
+            ViewData["PublisherId"] = new SelectList(_context.Publisher, "PublisherId", "PublisherName");
             ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");
-            ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
-            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
-            var applicationUser = await UserManager.GetUserAsync(User);
-            if (applicationUser.RoleId == 2)
-            {
-                return View();
-            }
-            else
-                return NotFound();
-
-
+            return View();
         }
 
         // POST: Books/Create
@@ -81,20 +71,13 @@ namespace LibraryCodingNight.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
-            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");
-            ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
-            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
-            var applicationUser = await UserManager.GetUserAsync(User);
-            if (applicationUser.RoleId == 1)
-            {
-                return View(book);
-            }
-            else
-                return NotFound();
-
-
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName", book.AuthorId);
+            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName", book.GenreId);
+            ViewData["PublisherId"] = new SelectList(_context.Publisher, "PublisherId", "PublisherName", book.PublisherId);
+            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName", book.SerieId);
+            return View(book);
         }
+
         // GET: Books/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -108,17 +91,11 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
-            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
-            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");
-            ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
-            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
-            var applicationUser = await UserManager.GetUserAsync(User);
-            if (applicationUser.RoleId == 1)
-            {
-                return View(book);
-            }
-            else
-                return NotFound();
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName", book.AuthorId);
+            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName", book.GenreId);
+            ViewData["PublisherId"] = new SelectList(_context.Publisher, "PublisherId", "PublisherName", book.PublisherId);
+            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName", book.SerieId);
+            return View(book);
         }
 
         // POST: Books/Edit/5
@@ -153,19 +130,13 @@ namespace LibraryCodingNight.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
-            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");
-            ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
-            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
-            var applicationUser = await UserManager.GetUserAsync(User);
-            if (applicationUser.RoleId == 1)
-            {
-                return View(book);
-            }
-            else
-                return NotFound();
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName", book.AuthorId);
+            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName", book.GenreId);
+            ViewData["PublisherId"] = new SelectList(_context.Publisher, "PublisherId", "PublisherName", book.PublisherId);
+            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName", book.SerieId);
+            return View(book);
         }
-        [Authorize(Policy = "RequireAdminRole")]
+
         // GET: Books/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -175,7 +146,9 @@ namespace LibraryCodingNight.Controllers
             }
 
             var book = await _context.Book
+                .Include(b => b.Author)
                 .Include(b => b.Genre)
+                .Include(b => b.Publisher)
                 .Include(b => b.Serie)
                 .FirstOrDefaultAsync(m => m.BookId == id);
             if (book == null)
@@ -183,13 +156,7 @@ namespace LibraryCodingNight.Controllers
                 return NotFound();
             }
 
-            var applicationUser = await UserManager.GetUserAsync(User);
-            if (applicationUser.RoleId == 1)
-            {
-                return View(book);
-            }
-            else
-                return NotFound();
+            return View(book);
         }
 
         // POST: Books/Delete/5
@@ -206,14 +173,14 @@ namespace LibraryCodingNight.Controllers
             {
                 _context.Book.Remove(book);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookExists(int id)
         {
-            return _context.Book.Any(e => e.BookId == id);
+          return _context.Book.Any(e => e.BookId == id);
         }
     }
 }

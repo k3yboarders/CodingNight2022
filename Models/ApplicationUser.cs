@@ -8,7 +8,14 @@ namespace LibraryCodingNight.Models
 
         [PersonalData] public string LastName { get; set; } = "";
 
-        
+        public string? FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
         [PersonalData] public DateTime? BirthDate { get; set; }
 
         [PersonalData] public int ThemeId { get; set; }
