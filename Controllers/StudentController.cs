@@ -149,12 +149,24 @@ namespace LibraryCodingNight.Controllers
             reservation.DateOfReserve = DateTime.Now;
             reservation.ApplicationUserId = applicationUser.Id;
             reservation.IsActual = true;
-            if (ModelState.IsValid)
+            if (_context.Book.SingleOrDefault(b => b.BookId == id).IsAvailable == true)
             {
-                _context.Add(reservation);
+                var result = _context.Book.SingleOrDefault(b => b.BookId == id);
+                result.IsAvailable = false;
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(AllBooks));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(reservation);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(AllBooks));
+                }
+                //zwroc zielone ze jest dostepna
             }
+            else
+            {
+                //zwroc czerwone ze nie jest dostepna
+            }
+
             return View();
         }
     }
