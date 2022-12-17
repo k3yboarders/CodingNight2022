@@ -1,0 +1,37 @@
+﻿@model IEnumerable<LibraryCodingNight.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Reservation";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h1>Reservation</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfReserve)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.BookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfReserve)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ReservationId">Szczegóły</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

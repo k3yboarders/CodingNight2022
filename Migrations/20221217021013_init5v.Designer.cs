@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryCodingNight.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221217002601_book")]
-    partial class book
+    [Migration("20221217021013_init5v")]
+    partial class init5v
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,6 +87,36 @@ namespace LibraryCodingNight.Migrations
                     b.ToTable("Book");
                 });
 
+            modelBuilder.Entity("LibraryCodingNight.Models.BorrowedBook", b =>
+                {
+                    b.Property<int>("BorrowedBookId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId1")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("BorrowedFrom")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("BorrowedTo")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("BorrowedBookId");
+
+                    b.HasIndex("ApplicationUserId1");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("BorrowedBook");
+                });
+
             modelBuilder.Entity("LibraryCodingNight.Models.Genre", b =>
                 {
                     b.Property<int>("GenreId")
@@ -120,6 +150,33 @@ namespace LibraryCodingNight.Migrations
                     b.ToTable("Publisher");
                 });
 
+            modelBuilder.Entity("LibraryCodingNight.Models.Reservation", b =>
+                {
+                    b.Property<int>("ReservationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId1")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOfReserve")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("ReservationId");
+
+                    b.HasIndex("ApplicationUserId1");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Reservation");
+                });
+
             modelBuilder.Entity("LibraryCodingNight.Models.Serie", b =>
                 {
                     b.Property<int>("SerieId")
@@ -137,6 +194,25 @@ namespace LibraryCodingNight.Migrations
                     b.HasKey("SerieId");
 
                     b.ToTable("Serie");
+                });
+
+            modelBuilder.Entity("LibraryCodingNight.Models.SuggestedBook", b =>
+                {
+                    b.Property<int>("SuggestedBookId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("SuggesteBookAuthor")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SuggestedBookTitle")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("SuggestedBookId");
+
+                    b.ToTable("SuggestedBook");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -365,8 +441,8 @@ namespace LibraryCodingNight.Migrations
                     b.Property<string>("ApplicationRoleId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<DateOnly?>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Card")
                         .IsRequired()
@@ -422,6 +498,40 @@ namespace LibraryCodingNight.Migrations
                     b.Navigation("Publisher");
 
                     b.Navigation("Serie");
+                });
+
+            modelBuilder.Entity("LibraryCodingNight.Models.BorrowedBook", b =>
+                {
+                    b.HasOne("LibraryCodingNight.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("BorrowedBooks")
+                        .HasForeignKey("ApplicationUserId1");
+
+                    b.HasOne("LibraryCodingNight.Models.Book", "Book")
+                        .WithMany("BorrowedBooks")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("LibraryCodingNight.Models.Reservation", b =>
+                {
+                    b.HasOne("LibraryCodingNight.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Reservations")
+                        .HasForeignKey("ApplicationUserId1");
+
+                    b.HasOne("LibraryCodingNight.Models.Book", "Book")
+                        .WithMany("Reservations")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -489,6 +599,13 @@ namespace LibraryCodingNight.Migrations
                     b.Navigation("Books");
                 });
 
+            modelBuilder.Entity("LibraryCodingNight.Models.Book", b =>
+                {
+                    b.Navigation("BorrowedBooks");
+
+                    b.Navigation("Reservations");
+                });
+
             modelBuilder.Entity("LibraryCodingNight.Models.Genre", b =>
                 {
                     b.Navigation("Books");
@@ -497,6 +614,13 @@ namespace LibraryCodingNight.Migrations
             modelBuilder.Entity("LibraryCodingNight.Models.Serie", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("LibraryCodingNight.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("BorrowedBooks");
+
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

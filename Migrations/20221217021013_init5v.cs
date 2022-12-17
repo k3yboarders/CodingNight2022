@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LibraryCodingNight.Migrations
 {
-    public partial class book : Migration
+    public partial class init5v : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -101,6 +101,23 @@ namespace LibraryCodingNight.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "SuggestedBook",
+                columns: table => new
+                {
+                    SuggestedBookId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    SuggestedBookTitle = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SuggesteBookAuthor = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SuggestedBook", x => x.SuggestedBookId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -137,7 +154,7 @@ namespace LibraryCodingNight.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LastName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     ThemeId = table.Column<int>(type: "int", nullable: true),
                     Card = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -329,6 +346,65 @@ namespace LibraryCodingNight.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "BorrowedBook",
+                columns: table => new
+                {
+                    BorrowedBookId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ApplicationUserId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId1 = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    BorrowedFrom = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    BorrowedTo = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BorrowedBook", x => x.BorrowedBookId);
+                    table.ForeignKey(
+                        name: "FK_BorrowedBook_AspNetUsers_ApplicationUserId1",
+                        column: x => x.ApplicationUserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_BorrowedBook_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Reservation",
+                columns: table => new
+                {
+                    ReservationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ApplicationUserId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId1 = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    DateOfReserve = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservation", x => x.ReservationId);
+                    table.ForeignKey(
+                        name: "FK_Reservation_AspNetUsers_ApplicationUserId1",
+                        column: x => x.ApplicationUserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Reservation_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -390,6 +466,26 @@ namespace LibraryCodingNight.Migrations
                 name: "IX_Book_SerieId",
                 table: "Book",
                 column: "SerieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BorrowedBook_ApplicationUserId1",
+                table: "BorrowedBook",
+                column: "ApplicationUserId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BorrowedBook_BookId",
+                table: "BorrowedBook",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_ApplicationUserId1",
+                table: "Reservation",
+                column: "ApplicationUserId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_BookId",
+                table: "Reservation",
+                column: "BookId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -410,10 +506,22 @@ namespace LibraryCodingNight.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Book");
+                name: "BorrowedBook");
+
+            migrationBuilder.DropTable(
+                name: "Reservation");
+
+            migrationBuilder.DropTable(
+                name: "SuggestedBook");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Book");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Author");
@@ -426,9 +534,6 @@ namespace LibraryCodingNight.Migrations
 
             migrationBuilder.DropTable(
                 name: "Serie");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
         }
     }
 }

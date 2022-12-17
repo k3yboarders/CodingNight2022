@@ -3,6 +3,7 @@ using LibraryCodingNight.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,11 @@ namespace LibraryCodingNight.Controllers
     public class StudentController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public StudentController(ApplicationDbContext context)
+        UserManager<ApplicationUser> UserManager;
+        public StudentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            UserManager = userManager;
         }
         public IActionResult Index()
         {
@@ -104,6 +107,39 @@ namespace LibraryCodingNight.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(suggestedBook);
+        }
+        public async Task<IActionResult> Reservation()
+        {
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 1)
+            {
+                var applicationDbContext = _context.Reservation.Include(r => r.Book).Where(b => b.ApplicationUserId == applicationUser.Id);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+                return NotFound();
+
+        }
+
+        // GET: Reservations/Details/5
+        public async Task<IActionResult> ReservationDetails(int? id)
+        {
+            if (id == null || _context.Reservation == null)
+            {
+                return NotFound();
+            }
+            var applicationUser = await UserManager.GetUserAsync(User);
+            var reservation = await _context.Reservation
+                .Include(r => r.Book)
+                .FirstOrDefaultAsync(m => m.ReservationId == id);
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+            if (applicationUser.RoleId == 1)
+                return View(reservation);
+            else
+                return NotFound();
         }
     }
     

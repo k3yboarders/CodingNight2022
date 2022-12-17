@@ -91,10 +91,8 @@ namespace LibraryCodingNight.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId1")
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("BookId")
@@ -108,7 +106,7 @@ namespace LibraryCodingNight.Migrations
 
                     b.HasKey("BorrowedBookId");
 
-                    b.HasIndex("ApplicationUserId1");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("BookId");
 
@@ -154,18 +152,19 @@ namespace LibraryCodingNight.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId1")
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateOfReserve")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("ReservationId");
 
-                    b.HasIndex("ApplicationUserId1");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("BookId");
 
@@ -498,11 +497,13 @@ namespace LibraryCodingNight.Migrations
             modelBuilder.Entity("LibraryCodingNight.Models.BorrowedBook", b =>
                 {
                     b.HasOne("LibraryCodingNight.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId1");
+                        .WithMany("BorrowedBooks")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LibraryCodingNight.Models.Book", "Book")
-                        .WithMany()
+                        .WithMany("BorrowedBooks")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -516,10 +517,12 @@ namespace LibraryCodingNight.Migrations
                 {
                     b.HasOne("LibraryCodingNight.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Reservations")
-                        .HasForeignKey("ApplicationUserId1");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LibraryCodingNight.Models.Book", "Book")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -594,6 +597,13 @@ namespace LibraryCodingNight.Migrations
                     b.Navigation("Books");
                 });
 
+            modelBuilder.Entity("LibraryCodingNight.Models.Book", b =>
+                {
+                    b.Navigation("BorrowedBooks");
+
+                    b.Navigation("Reservations");
+                });
+
             modelBuilder.Entity("LibraryCodingNight.Models.Genre", b =>
                 {
                     b.Navigation("Books");
@@ -606,6 +616,8 @@ namespace LibraryCodingNight.Migrations
 
             modelBuilder.Entity("LibraryCodingNight.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("BorrowedBooks");
+
                     b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618

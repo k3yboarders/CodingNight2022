@@ -9,7 +9,6 @@ using LibraryCodingNight.Data;
 using LibraryCodingNight.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using LibraryCodingNight.Migrations;
 
 namespace LibraryCodingNight.Controllers
 {

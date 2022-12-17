@@ -36,5 +36,7 @@ namespace LibraryCodingNight.Models
         [Display(Name = "Nazwa Serii")]
         public Serie? Serie { get; set; }
         public int? SerieId { get; set; }
+        public List<Reservation>? Reservations { get; set; }
+        public List<BorrowedBook>? BorrowedBooks { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace LibraryCodingNight.Models
         public int RoleId { get; set; }
         public ApplicationRole? ApplicationRole { get; set; }
         public List<Reservation>? Reservations { get; set; }
+        public List<BorrowedBook>? BorrowedBooks { get; set; }
     }
 }
