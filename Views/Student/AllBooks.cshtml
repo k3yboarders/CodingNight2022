@@ -1,93 +1,89 @@
 ﻿@model IEnumerable<LibraryCodingNight.Models.Book>
 
 @{
-    ViewData["Title"] = "Wszystkie książki";
-    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
-    string[] Categories = {"Wybierz kategorię", "Tytuł", "Autor", "ISBN", "Gatunek", "Seria" };
+	ViewData["Title"] = "Wszystkie książki";
+	Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+	string[] Categories = { "Kategoria", "Tytuł", "Autor", "ISBN", "Gatunek", "Seria" };
 }
 <form asp-controller="Student" asp-action="AllBooks" method="post">
-    <div class="row">
-<div class="mb-3 col">
-        <select class="form-control w-25" name="category">
-@for (int i = 0; i < Categories.Length; i++) {
-                @if (i == ViewBag.SelectedItem) {
-                    <option selected value="@i">@Categories[i]</option>
-                }
-                else {
-                    <option value="@i">@Categories[i]</option>
-                }
-}
-
-        </select>
-        </div>
-        <div class="mb-3 col">
-        <input class="form-control w-25" type="text" name="searchString" value="@ViewBag.searchString" />
-    </div>
-    </div>
-    <div class="row">
-        <div class="mb-3 col">
-            <input class="btn btn-lg btn-success w-50" type="submit" value="Szukaj" />
-</div>
-</div>
-
+	<div class="form-control search-bar d-flex align-content-center mb-3">
+		<button class="btn border-0 py-1 px-2" type="submit">
+			<i class="bi bi-search-heart-fill"></i>
+		</button>
+		<input type="text" class="form-control border-0 w-100 mx-2" type="search" placeholder="Szukaj" aria-label="Search">
+		<select class="btn rounded-3 bg-light" name="category">
+			@for (int i = 0; i < Categories.Length; i++)
+			{
+				@if (i == ViewBag.SelectedItem)
+				{
+					<option selected value="@i">@Categories[i]</option>
+				}
+				else
+				{
+					<option value="@i">@Categories[i]</option>
+				}
+			}
+		</select>
+	</div>
 </form>
 <h3>Znaleziono: @ViewBag.Count książek</h3>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublishDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Serie)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre.GenreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishDate.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAvailable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Serie.SerieName)
-            </td>
-            <td>
-                <a asp-controller="Student" asp-action="Details" asp-route-id="@item.BookId">Szczegóły</a> |
-                <a asp-route-id="@item.BookId">Zarezerwuj</a>
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Title)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Publisher)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Genre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PublishDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.IsAvailable)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Description)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Serie)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Title)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Publisher.PublisherName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Genre.GenreName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PublishDate.Year)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.IsAvailable)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Description)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Serie.SerieName)
+				</td>
+				<td>
+					<a asp-controller="Student" asp-action="Details" asp-route-id="@item.BookId">Szczegóły</a> |
+					<a asp-route-id="@item.BookId">Zarezerwuj</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
