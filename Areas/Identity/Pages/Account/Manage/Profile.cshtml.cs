@@ -69,6 +69,10 @@ namespace LibraryCodingNight.Areas.Identity.Pages.Account.Manage
             public DateTime? BirthDate { get; set; }
 
             [PersonalData]
+            [Display(Name = "Numer karty bibliotecznej")]
+            public string Card { get; set; }
+
+            [PersonalData]
             [Display(Name = "Motyw")]
             public int ThemeId { get; set; }
 
@@ -138,7 +142,11 @@ namespace LibraryCodingNight.Areas.Identity.Pages.Account.Manage
                 user.ThemeId = Input.ThemeId;
                 await _userManager.UpdateAsync(user);
             }            
-            
+            if (Input.Card != user.Card)
+            {
+                user.Card = Input.Card;
+                await _userManager.UpdateAsync(user);
+            }            
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Twój profil został zaktualizowany";
             return RedirectToPage();

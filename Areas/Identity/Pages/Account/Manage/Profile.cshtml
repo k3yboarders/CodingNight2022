@@ -71,7 +71,7 @@
                 <input asp-for="Input.LastName" class="form-control @theme" aria-required="true" value="@applicationUser.LastName"/>
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
-        </div> <!--
+        </div> 
         <div class="row">
 
             <div class="mb-3 col">
@@ -79,7 +79,12 @@
                 <input asp-for="Input.BirthDate" class="form-control @theme" aria-required="true" value="@applicationUser.BirthDate"/>
                 <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
             </div>
-      </div>           -->
+            <div class="mb-3 col">
+                <label asp-for="Input.Card" class="form-label"></label>
+                <input asp-for="Input.Card" class="form-control @theme" aria-required="true" value="@applicationUser.Card"/>
+                <span asp-validation-for="Input.Card" class="text-danger"></span>
+            </div>
+      </div>           
         <div class="row w-25" style="margin: auto;">
           <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-success">Zatwierdź</button>
         </div>
