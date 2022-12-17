@@ -7,8 +7,8 @@
 <h1>@ViewData["Title"]</h1>
 <hr />
 <p>
-    You have requested to log in with a recovery code. This login will not be remembered until you provide
-    an authenticator app code at log in or disable 2FA and log in again.
+    Poprosiłeś o zalogowanie się za pomocą kodu odzyskiwania. Ten login nie zostanie zapamiętany, dopóki go nie podasz 
+    kod aplikacji uwierzytelniającej podczas logowania lub wyłącz 2FA i zaloguj się ponownie.
 </p>
 <div class="row">
     <div class="col-md-4">
@@ -19,7 +19,7 @@
                 <label asp-for="Input.RecoveryCode" class="form-label"></label>
                 <span asp-validation-for="Input.RecoveryCode" class="text-danger"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Zaloguj się</button>
         </form>
     </div>
 </div>
