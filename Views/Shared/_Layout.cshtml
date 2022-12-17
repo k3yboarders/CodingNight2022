@@ -27,14 +27,14 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         var applicationUser = await UserManager.GetUserAsync(User);
-                        @if (applicationUser.RoleId == 1)
+                        @if (applicationUser.RoleId == 2)
                         {
                             <li class="nav-item">
                                 <a class="nav-link me-lg-3" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Witaj @applicationUser.FirstName @applicationUser.LastName!</a>
                             </li>
 
                         }
-                        @if (applicationUser.RoleId == 2)
+                        @if (applicationUser.RoleId == 1)
                         {
                             <li class="nav-item">
                                 <a class="nav-link me-lg-3" asp-controller="Admin" asp-action="Index">Witaj @applicationUser.FirstName @applicationUser.LastName!</a>

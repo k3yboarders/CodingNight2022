@@ -28,5 +28,19 @@ namespace LibraryCodingNight.Controllers
                 return NotFound();
 
         }
+        public async Task<IActionResult> GetBooks()
+        {
+
+            var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie).Include(b => b.Publisher).Include(b => b.Author);
+            ViewBag.Count = applicationDbContext.Count();
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 2)
+            {
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+                return NotFound();
+
+        }
     }
 }
