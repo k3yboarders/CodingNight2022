@@ -179,6 +179,7 @@ namespace LibraryCodingNight.Controllers
                 if (ModelState.IsValid)
                 {
                     _context.Add(reservation);
+                    ViewBag.Success = "WEEE";
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(AllBooks));
                 }
