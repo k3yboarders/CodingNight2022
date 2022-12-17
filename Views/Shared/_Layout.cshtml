@@ -34,7 +34,7 @@
                             </li>
 
                         }
-                        @if (applicationUser.RoleId == 1)
+                        else
                         {
                             <li class="nav-item">
                                 <a class="nav-link me-lg-3" asp-controller="Admin" asp-action="Index">Witaj @applicationUser.FirstName @applicationUser.LastName!</a>

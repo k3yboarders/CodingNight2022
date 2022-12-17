@@ -34,7 +34,7 @@ namespace LibraryCodingNight.Controllers
         public async Task<IActionResult> AllBooks()
         {
 
-            var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie).Include(b => b.Publisher).Include(b => b.Author);
+            var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie).Include(b => b.Publisher).Include(b => b.Author).Where(b => b.IsAvailable == true);
             ViewBag.Count = applicationDbContext.Count();
             var applicationUser = await UserManager.GetUserAsync(User);
             if (applicationUser.RoleId == 2)
@@ -196,7 +196,7 @@ namespace LibraryCodingNight.Controllers
             var applicationUser = await UserManager.GetUserAsync(User);
             if (applicationUser.RoleId == 2)
             {
-                var applicationDbContext = _context.BorrowedBook.Include(b => b.Book);
+                var applicationDbContext = _context.BorrowedBook.Include(b => b.Book).Where(b => b.ApplicationUserId == applicationUser.Id);
                 return View(await applicationDbContext.ToListAsync());
             }
             else

@@ -25,7 +25,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsActual)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -44,9 +43,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsActual)
-            </td>
-            <td>
-                    <a asp-action="DeleteConfirmed" asp-route-id="@item.ReservationId">Usuń</a>
             </td>
         </tr>
 }

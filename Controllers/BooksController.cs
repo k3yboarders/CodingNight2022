@@ -58,7 +58,7 @@ namespace LibraryCodingNight.Controllers
             ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
             ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
             var applicationUser = await UserManager.GetUserAsync(User);
-            if (applicationUser.RoleId == 1)
+            if (applicationUser.RoleId == 2)
             {
                 return View();
             }
