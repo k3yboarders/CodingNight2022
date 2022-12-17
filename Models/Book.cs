@@ -33,7 +33,7 @@ namespace LibraryCodingNight.Models
         public Author? Author { get; set; }
         public int AuthorId { get; set; }
 
-        [Display(Name = "Id serii")]
+        [Display(Name = "Nazwa Serii")]
         public Serie? Serie { get; set; }
         public int? SerieId { get; set; }
     }
