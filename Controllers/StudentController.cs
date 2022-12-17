@@ -113,7 +113,7 @@ namespace LibraryCodingNight.Controllers
             var applicationUser = await UserManager.GetUserAsync(User);
             if (applicationUser.RoleId == 1)
             {
-                var applicationDbContext = _context.Reservation.Include(r => r.Book).Where(b => b.ApplicationUserId == applicationUser.Id);
+                var applicationDbContext = _context.Reservation.Include(r => r.Book).Where(b => b.ApplicationUserId == applicationUser.Id).Where(b => b.IsActual == true);
                 return View(await applicationDbContext.ToListAsync());
             }
             else
@@ -140,6 +140,22 @@ namespace LibraryCodingNight.Controllers
                 return View(reservation);
             else
                 return NotFound();
+        }
+        public async Task<IActionResult> ReserveBook(int id)
+        {
+            var applicationUser = await UserManager.GetUserAsync(User);
+            Reservation reservation = new Reservation();
+            reservation.BookId = id;
+            reservation.DateOfReserve = DateTime.Now;
+            reservation.ApplicationUserId = applicationUser.Id;
+            reservation.IsActual = true;
+            if (ModelState.IsValid)
+            {
+                _context.Add(reservation);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(AllBooks));
+            }
+            return View();
         }
     }
     
