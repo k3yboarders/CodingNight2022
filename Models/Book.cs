@@ -18,7 +18,7 @@ namespace LibraryCodingNight.Models
 
         [Column(TypeName = "varchar(13)")]
         public string ISBN { get; set; }
-        [Display(Name = "Id gatunku")]
+        [Display(Name = "Nazwa gatunku")]
         public Genre? Genre { get; set; }  
         public int GenreId { get; set; }
         [Display(Name = "Data Wydania")]
