@@ -8,6 +8,7 @@ namespace LibraryCodingNight.Models
     {   
         public int BookId { get; set; }
         public string Title { get; set; }
+        public Publisher? Publisher { get; set; }
         public int PublisherId { get; set; }
 
         [Column(TypeName = "smallint")]
@@ -25,8 +26,9 @@ namespace LibraryCodingNight.Models
 
         [Column(TypeName = "text")]
         public string? Description { get; set; }
+        public Author? Author { get; set; }
+        public int AuthorId { get; set; }
 
-        public List<Author>? Authors { get; set; }
 
         public Serie? Serie { get; set; }
         public int? SerieId { get; set; }

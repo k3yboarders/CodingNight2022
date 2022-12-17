@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
 
 <h1>Edit</h1>
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PublisherId" class="control-label"></label>
-                <input asp-for="PublisherId" class="form-control" />
+                <select asp-for="PublisherId" class="form-control" asp-items="ViewBag.PublisherId"></select>
                 <span asp-validation-for="PublisherId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -54,6 +55,11 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="AuthorId" class="control-label"></label>
+                <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="SerieId" class="control-label"></label>
                 <select asp-for="SerieId" class="form-control" asp-items="ViewBag.SerieId"></select>
                 <span asp-validation-for="SerieId" class="text-danger"></span>
@@ -69,6 +75,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

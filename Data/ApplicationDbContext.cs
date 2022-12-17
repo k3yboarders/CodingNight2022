@@ -11,13 +11,13 @@ namespace LibraryCodingNight.Data
         {
         }
         public DbSet<ApplicationUser>? ApplicationUser { get; set; }
+        public DbSet<ApplicationRole> ApplicationRole { get; set; }
         public DbSet<Book>? Book { get; set; }
         public DbSet<Author>? Author { get; set; }
         public DbSet<Serie>? Serie { get; set; }
         public DbSet<Publisher>? Publisher { get; set; }
-        public DbSet<BookAuthor>? BookAuthor { get; set; }
         public DbSet<Genre>? Genre { get; set; }
-        public DbSet<LibraryCodingNight.Models.ApplicationRole> ApplicationRole { get; set; }
+
 
 
     }

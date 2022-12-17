@@ -9,6 +9,7 @@ using LibraryCodingNight.Data;
 using LibraryCodingNight.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using LibraryCodingNight.Migrations;
 
 namespace LibraryCodingNight.Controllers
 {
@@ -26,7 +27,7 @@ namespace LibraryCodingNight.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie);
+            var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie).Include(b => b.Publisher).Include(b => b.Author);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -40,7 +41,8 @@ namespace LibraryCodingNight.Controllers
 
             var book = await _context.Book
                 .Include(b => b.Genre)
-                .Include(b => b.Serie)
+                .Include(b => b.Serie).Include(b => b.Publisher)
+                                 .Include(b => b.Author)
                 .FirstOrDefaultAsync(m => m.BookId == id);
             if (book == null)
             {
@@ -52,8 +54,10 @@ namespace LibraryCodingNight.Controllers
         // GET: Books/Create
         public async Task<IActionResult> Create()
         {
-            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreId");
-            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieId");
+            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
+            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");
+            ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
             var applicationUser = await UserManager.GetUserAsync(User);
             if (applicationUser.RoleId == 1)
             {
@@ -70,7 +74,7 @@ namespace LibraryCodingNight.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookId,Title,PublisherId,PageNumber,ISBN,GenreId,PublishDate,IsAvailable,Description,SerieId")] Book book)
+        public async Task<IActionResult> Create([Bind("BookId,Title,PublisherId,PageNumber,ISBN,GenreId,PublishDate,IsAvailable,Description,AuthorId,SerieId")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -78,8 +82,10 @@ namespace LibraryCodingNight.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreId", book.GenreId);
-            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieId", book.SerieId);
+            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
+            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");
+            ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
             var applicationUser = await UserManager.GetUserAsync(User);
             if (applicationUser.RoleId == 1)
             {
@@ -103,8 +109,10 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
-            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreId", book.GenreId);
-            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieId", book.SerieId);
+            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
+            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");
+            ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
             var applicationUser = await UserManager.GetUserAsync(User);
             if (applicationUser.RoleId == 1)
             {
@@ -119,7 +127,7 @@ namespace LibraryCodingNight.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,PublisherId,PageNumber,ISBN,GenreId,PublishDate,IsAvailable,Description,SerieId")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,PublisherId,PageNumber,ISBN,GenreId,PublishDate,IsAvailable,Description,AuthorId,SerieId")] Book book)
         {
             if (id != book.BookId)
             {
@@ -146,8 +154,10 @@ namespace LibraryCodingNight.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreId", book.GenreId);
-            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieId", book.SerieId);
+            ViewData["GenreId"] = new SelectList(_context.Genre, "GenreId", "GenreName");
+            ViewData["SerieId"] = new SelectList(_context.Serie, "SerieId", "SerieName");
+            ViewData["PublisherId"] = new SelectList(_context.Serie, "PublisherId", "PublisherName");
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorName");
             var applicationUser = await UserManager.GetUserAsync(User);
             if (applicationUser.RoleId == 1)
             {
@@ -197,14 +207,14 @@ namespace LibraryCodingNight.Controllers
             {
                 _context.Book.Remove(book);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookExists(int id)
         {
-          return _context.Book.Any(e => e.BookId == id);
+            return _context.Book.Any(e => e.BookId == id);
         }
     }
 }

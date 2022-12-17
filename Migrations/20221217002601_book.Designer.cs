@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryCodingNight.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221216221104_role")]
-    partial class role
+    [Migration("20221217002601_book")]
+    partial class book
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,34 +21,15 @@ namespace LibraryCodingNight.Migrations
                 .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("AuthorBook", b =>
-                {
-                    b.Property<int>("AuthorsAuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BooksBookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AuthorsAuthorId", "BooksBookId");
-
-                    b.HasIndex("BooksBookId");
-
-                    b.ToTable("AuthorBook");
-                });
-
             modelBuilder.Entity("LibraryCodingNight.Models.Author", b =>
                 {
                     b.Property<int>("AuthorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("AuthorFirstName")
+                    b.Property<string>("AuthorName")
                         .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("AuthorLastName")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("text");
 
                     b.HasKey("AuthorId");
 
@@ -59,6 +40,9 @@ namespace LibraryCodingNight.Migrations
                 {
                     b.Property<int>("BookId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -92,32 +76,15 @@ namespace LibraryCodingNight.Migrations
 
                     b.HasKey("BookId");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("GenreId");
+
+                    b.HasIndex("PublisherId");
 
                     b.HasIndex("SerieId");
 
                     b.ToTable("Book");
-                });
-
-            modelBuilder.Entity("LibraryCodingNight.Models.BookAuthor", b =>
-                {
-                    b.Property<int>("BookAuthorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookAuthorId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookAuthor");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.Genre", b =>
@@ -398,8 +365,8 @@ namespace LibraryCodingNight.Migrations
                     b.Property<string>("ApplicationRoleId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<DateTime?>("BirthDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<DateOnly?>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Card")
                         .IsRequired()
@@ -424,26 +391,23 @@ namespace LibraryCodingNight.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("AuthorBook", b =>
-                {
-                    b.HasOne("LibraryCodingNight.Models.Author", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorsAuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LibraryCodingNight.Models.Book", null)
-                        .WithMany()
-                        .HasForeignKey("BooksBookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("LibraryCodingNight.Models.Book", b =>
                 {
+                    b.HasOne("LibraryCodingNight.Models.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("LibraryCodingNight.Models.Genre", "Genre")
                         .WithMany("Books")
                         .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LibraryCodingNight.Models.Publisher", "Publisher")
+                        .WithMany()
+                        .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -451,24 +415,13 @@ namespace LibraryCodingNight.Migrations
                         .WithMany("Books")
                         .HasForeignKey("SerieId");
 
-                    b.Navigation("Genre");
-
-                    b.Navigation("Serie");
-                });
-
-            modelBuilder.Entity("LibraryCodingNight.Models.BookAuthor", b =>
-                {
-                    b.HasOne("LibraryCodingNight.Models.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
-
-                    b.HasOne("LibraryCodingNight.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId");
-
                     b.Navigation("Author");
 
-                    b.Navigation("Book");
+                    b.Navigation("Genre");
+
+                    b.Navigation("Publisher");
+
+                    b.Navigation("Serie");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -529,6 +482,11 @@ namespace LibraryCodingNight.Migrations
                         .HasForeignKey("ApplicationRoleId");
 
                     b.Navigation("ApplicationRole");
+                });
+
+            modelBuilder.Entity("LibraryCodingNight.Models.Author", b =>
+                {
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("LibraryCodingNight.Models.Genre", b =>

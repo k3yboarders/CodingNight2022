@@ -23,8 +23,8 @@ namespace LibraryCodingNight.Controllers
         }
         public async Task<IActionResult> AllBooks()
         {
-            //ViewData["Categories"] = new List<string> {"Tytuł", "Autor", "ISBN", "Gatunek", "Seria"};
-            var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie);
+
+            var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie).Include(b => b.Publisher).Include(b => b.Author);
             return View(await applicationDbContext.ToListAsync());
         }
         public async Task<IActionResult> Details(int? id)
@@ -37,6 +37,8 @@ namespace LibraryCodingNight.Controllers
             var book = await _context.Book
                 .Include(b => b.Genre)
                 .Include(b => b.Serie)
+                .Include(b => b.Publisher)
+                 .Include(b => b.Author)
                 .FirstOrDefaultAsync(m => m.BookId == id);
             if (book == null)
             {
@@ -46,13 +48,21 @@ namespace LibraryCodingNight.Controllers
             return View(book);
         }
         [HttpPost]
-        public async Task<IActionResult> AllBooks(string searchString, string category)
+        public async Task<IActionResult> AllBooks(string searchString, int category)
         {
             var books = from b in _context.Book select b;
             
             if (!String.IsNullOrEmpty(searchString))
             {
-                books = books.Where(b => b.Title!.Contains(searchString));
+                switch (category)
+                {
+                    case 2:
+                        break;
+                    default:
+                        books = books.Where(b => b.Title!.Contains(searchString));
+                        break;
+                }
+
             }
 
             return View(await books.ToListAsync());

@@ -6,7 +6,14 @@
 }
 <form asp-controller="Student" asp-action="AllBooks">
     <p>
-        <!--<select name="category" asp-items="@ViewBag.Categories"></select>-->
+        <select name="category">
+            <option value="1">Tytuł</option>
+            <option value="2">Autor</option>
+            <option value="3">ISBN</option>
+            <option value="4">Gatunek</option>
+            <option value="5">Seria</option>
+        </select>
+
         <input type="text" name="searchString" />
         <input type="submit" value="Szukaj" />
     </p>
@@ -19,13 +26,7 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PublisherId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PageNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ISBN)
+                @Html.DisplayNameFor(model => model.Publisher)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Genre)
@@ -52,7 +53,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublisherId)
+                @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PageNumber)
@@ -61,7 +62,7 @@
                 @Html.DisplayFor(modelItem => item.ISBN)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Genre.GenreId)
+                @Html.DisplayFor(modelItem => item.Genre.GenreName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishDate)
@@ -73,11 +74,11 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Serie.SerieId)
+                @Html.DisplayFor(modelItem => item.Serie.SerieName)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.BookId">Szczegóły</a> |
-                <a asp-route-id="@item.BookId">Wypożycz</a> |
+                <a asp-controller="Student" asp-action="Details" asp-route-id="@item.BookId">Szczegóły</a> |
+                <a asp-route-id="@item.BookId">Zarezerwuj</a> |
             </td>
         </tr>
 }
