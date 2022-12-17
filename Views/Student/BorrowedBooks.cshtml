@@ -1,0 +1,39 @@
+﻿@model IEnumerable<LibraryCodingNight.Models.BorrowedBook>
+
+@{
+	ViewData["Title"] = "Pożyczone książki";
+	Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h1>Wypożyczone książki</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowedFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowedTo)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowedFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowedTo)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
