@@ -15,5 +15,6 @@ namespace LibraryCodingNight.Models
         [PersonalData] public string Card { get; set; }
         public int RoleId { get; set; }
         public ApplicationRole? ApplicationRole { get; set; }
+        public List<Reservation>? Reservations { get; set; }
     }
 }

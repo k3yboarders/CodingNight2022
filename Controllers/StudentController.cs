@@ -89,6 +89,22 @@ namespace LibraryCodingNight.Controllers
 
             return View(await books.ToListAsync());
         }
+        public IActionResult SuggestBook()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SuggestBook([Bind("SuggestedBookId,SuggestedBookTitle,SuggesteBookAuthor")] SuggestedBook suggestedBook)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(suggestedBook);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(suggestedBook);
+        }
     }
     
 }
