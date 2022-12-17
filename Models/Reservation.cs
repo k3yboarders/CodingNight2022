@@ -11,7 +11,8 @@ namespace LibraryCodingNight.Models
         public int BookId { get; set; }
         public Book? Book { get; set; }
 
-        [Display(Name = "Data wypożyczenia")]
+        [Display(Name = "Data rezerwacji")]
         public DateTime DateOfReserve { get; set; }
+        public bool IsActual { get; set; }
     }
 }
