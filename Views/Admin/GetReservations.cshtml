@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LibraryCodingNight.Models.Reservation>
 
 @{
-    ViewData["Title"] = "Zdobądź rezerwacje";
+    ViewData["Title"] = "Rezerwacje uczniów";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,19 +11,19 @@
     <thead>
         <tr>
                         <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser.FirstName)
+			    Imię
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser.LastName)
+		Nazwisko
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book)
+		Książka
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateOfReserve)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsActual)
+		Jest aktualna
             </th>
         </tr>
     </thead>

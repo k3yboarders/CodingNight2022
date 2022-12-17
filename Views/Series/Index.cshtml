@@ -1,42 +1,46 @@
 ﻿@model IEnumerable<LibraryCodingNight.Models.Serie>
 
 @{
+<<<<<<< HEAD
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+=======
+    ViewData["Title"] = "Serie";
+    Layout = "_LayoutAdmin";
+>>>>>>> ff870c7e936c494cbabea16f567683eb157c0d27
 }
-
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Stwórz nowy</a>
+    <a asp-action="Create">Dodaj nową serię</a>
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SerieName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SerieDescription)
-            </th>
-            <th></th>
-        </tr>
+	<tr>
+	    <th>
+		@Html.DisplayNameFor(model => model.SerieName)
+	    </th>
+	    <th>
+		@Html.DisplayNameFor(model => model.SerieDescription)
+	    </th>
+	    <th></th>
+	</tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
+	@foreach (var item in Model) {
+	    <tr>
+	<td>
                 @Html.DisplayFor(modelItem => item.SerieName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SerieDescription)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SerieId">Edytuj</a> |
-                <a asp-action="Details" asp-route-id="@item.SerieId">Szczegóły</a> |
-                <a asp-action="Delete" asp-route-id="@item.SerieId">Usuń</a>
-            </td>
-        </tr>
-}
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SerieDescription)
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.SerieId">Edytuj</a> |
+            <a asp-action="Details" asp-route-id="@item.SerieId">Szczegóły</a> |
+            <a asp-action="Delete" asp-route-id="@item.SerieId">Usuń</a>
+        </td>
+	</tr>
+	}
     </tbody>
 </table>
