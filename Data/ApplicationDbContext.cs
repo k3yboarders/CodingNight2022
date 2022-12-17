@@ -18,7 +18,7 @@ namespace LibraryCodingNight.Data
         public DbSet<Publisher>? Publisher { get; set; }
         public DbSet<Genre>? Genre { get; set; }
 
-
+        public DbSet<SuggestedBook>? SuggestedBook { get; set; }
 
     }
 }

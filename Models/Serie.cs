@@ -7,7 +7,9 @@ namespace LibraryCodingNight.Models
     {
         public int SerieId { get; set; }
         public List<Book>? Books { get; set; }
+        [Display(Name = "Nazwa serii")]
         public string SerieName { get; set; }
+        [Display(Name = "Opis")]
         [Column(TypeName = "text")]
         public string SerieDescription { get; set; }
     }

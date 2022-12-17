@@ -18,20 +18,22 @@ namespace LibraryCodingNight.Models
 
         [Column(TypeName = "varchar(13)")]
         public string ISBN { get; set; }
-
+        [Display(Name = "Id gatunku")]
         public Genre? Genre { get; set; }  
         public int GenreId { get; set; }
-
+        [Display(Name = "Data Wydania")]
         [Column(TypeName = "date")]
         public DateOnly PublishDate { get; set; }
+        [Display(Name = "Czy dostępna?")]
         public bool IsAvailable { get; set; }
-
+        [Display(Name = "Opis")]
         [Column(TypeName = "text")]
         public string? Description { get; set; }
+        [Display(Name = "Id autora")]
         public Author? Author { get; set; }
         public int AuthorId { get; set; }
 
-
+        [Display(Name = "Id serii")]
         public Serie? Serie { get; set; }
         public int? SerieId { get; set; }
     }

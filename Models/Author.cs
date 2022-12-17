@@ -7,6 +7,7 @@ namespace LibraryCodingNight.Models
     public class Author
     {
         public int AuthorId { get; set; }
+        [Display(Name = "Imie")]
         [Column(TypeName = "text")]
         public string AuthorName { get; set; }   
 
