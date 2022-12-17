@@ -29,17 +29,17 @@
 
 	$.validator.addMethod( "maxWords", function( value, element, params ) {
 		return this.optional( element ) || stripHtml( value ).match( /\b\w+\b/g ).length <= params;
-	}, $.validator.format( "Please enter {0} words or less." ) );
+	}, $.validator.format( "Wpisz {0} słów lub mniej." ) );
 
 	$.validator.addMethod( "minWords", function( value, element, params ) {
 		return this.optional( element ) || stripHtml( value ).match( /\b\w+\b/g ).length >= params;
-	}, $.validator.format( "Please enter at least {0} words." ) );
+	}, $.validator.format( "Wprowadź co najmniej {0} słów." ) );
 
 	$.validator.addMethod( "rangeWords", function( value, element, params ) {
 		var valueStripped = stripHtml( value ),
 			regex = /\b\w+\b/g;
 		return this.optional( element ) || valueStripped.match( regex ).length >= params[ 0 ] && valueStripped.match( regex ).length <= params[ 1 ];
-	}, $.validator.format( "Please enter between {0} and {1} words." ) );
+	}, $.validator.format( "Wprowadź od {0} do {1} słów." ) );
 
 }() );
 
@@ -83,11 +83,11 @@ $.validator.addMethod( "accept", function( value, element, param ) {
 	// Either return true because we've validated each file, or because the
 	// browser does not support element.files and the FileList feature
 	return true;
-}, $.validator.format( "Please enter a value with a valid mimetype." ) );
+}, $.validator.format( "Wprowadź wartość z prawidłowym typem MIME." ) );
 
 $.validator.addMethod( "alphanumeric", function( value, element ) {
 	return this.optional( element ) || /^\w+$/i.test( value );
-}, "Letters, numbers, and underscores only please" );
+}, "Proszę używać tylko liter, cyfr i znaków podkreślenia" );
 
 /*
  * Dutch bank account numbers (not 'giro' numbers) have 9 digits
@@ -114,13 +114,13 @@ $.validator.addMethod( "bankaccountNL", function( value, element ) {
 		sum = sum + factor * digit;
 	}
 	return sum % 11 === 0;
-}, "Please specify a valid bank account number" );
+}, "Podaj prawidłowy numer konta bankowego" );
 
 $.validator.addMethod( "bankorgiroaccountNL", function( value, element ) {
 	return this.optional( element ) ||
 			( $.validator.methods.bankaccountNL.call( this, value, element ) ) ||
 			( $.validator.methods.giroaccountNL.call( this, value, element ) );
-}, "Please specify a valid bank or giro account number" );
+}, "Proszę podać prawidłowy numer konta bankowego lub giro" );
 
 /**
  * BIC is the business identifier code (ISO 9362). This BIC check is not a guarantee for authenticity.
@@ -139,7 +139,7 @@ $.validator.addMethod( "bankorgiroaccountNL", function( value, element ) {
  */
 $.validator.addMethod( "bic", function( value, element ) {
     return this.optional( element ) || /^([A-Z]{6}[A-Z2-9][A-NP-Z1-9])(X{3}|[A-WY-Z0-9][A-Z0-9]{2})?$/.test( value.toUpperCase() );
-}, "Please specify a valid BIC code" );
+}, "Podaj prawidłowy kod BIC" );
 
 /*
  * Código de identificación fiscal ( CIF ) is the tax identification code for Spanish legal entities
@@ -254,7 +254,7 @@ $.validator.addMethod( "cifES", function( value, element ) {
 	// Can be either
 	return control === control_digit || control === control_letter;
 
-}, "Please specify a valid CIF number." );
+}, "Podaj prawidłowy numer CIF." );
 
 /*
  * Brazillian CPF number (Cadastrado de Pessoas Físicas) is the equivalent of a Brazilian tax registration number.
@@ -315,7 +315,7 @@ $.validator.addMethod( "cpfBR", function( value ) {
 	}
 	return false;
 
-}, "Please specify a valid CPF number" );
+}, "Podaj prawidłowy numer CPF" );
 
 // https://jqueryvalidation.org/creditcard-method/
 // based on https://en.wikipedia.org/wiki/Luhn_algorithm
@@ -356,7 +356,7 @@ $.validator.addMethod( "creditcard", function( value, element ) {
 	}
 
 	return ( nCheck % 10 ) === 0;
-}, "Please enter a valid credit card number." );
+}, "Proszę podać poprawny numer karty kredytowej." );
 
 /* NOTICE: Modified version of Castle.Components.Validator.CreditCardValidator
  * Redistributed under the the Apache License 2.0 at http://www.apache.org/licenses/LICENSE-2.0
@@ -426,7 +426,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
 		return true;
 	}
 	return false;
-}, "Please enter a valid credit card number." );
+}, "Proszę podać poprawny numer karty kredytowej." );
 
 /**
  * Validates currencies with any given symbols by @jameslouiz
@@ -468,7 +468,7 @@ $.validator.addMethod( "currency", function( value, element, param ) {
     regex = new RegExp( regex );
     return this.optional( element ) || regex.test( value );
 
-}, "Please specify a valid currency" );
+}, "Podaj prawidłową walutę" );
 
 $.validator.addMethod( "dateFA", function( value, element ) {
 	return this.optional( element ) || /^[1-4]\d{3}\/((0?[1-6]\/((3[0-1])|([1-2][0-9])|(0?[1-9])))|((1[0-2]|(0?[7-9]))\/(30|([1-2][0-9])|(0?[1-9]))))$/.test( value );
@@ -522,14 +522,14 @@ $.validator.addMethod( "dateNL", function( value, element ) {
 $.validator.addMethod( "extension", function( value, element, param ) {
 	param = typeof param === "string" ? param.replace( /,/g, "|" ) : "png|jpe?g|gif";
 	return this.optional( element ) || value.match( new RegExp( "\\.(" + param + ")$", "i" ) );
-}, $.validator.format( "Please enter a value with a valid extension." ) );
+}, $.validator.format( "Wprowadź wartość z prawidłowym rozszerzeniem." ) );
 
 /**
  * Dutch giro account numbers (not bank numbers) have max 7 digits
  */
 $.validator.addMethod( "giroaccountNL", function( value, element ) {
 	return this.optional( element ) || /^[0-9]{1,7}$/.test( value );
-}, "Please specify a valid giro account number" );
+}, "Proszę podać prawidłowy numer konta giro" );
 
 /**
  * IBAN is the international bank account number.
@@ -666,7 +666,7 @@ $.validator.addMethod( "iban", function( value, element ) {
 		cRest = cOperator % 97;
 	}
 	return cRest === 1;
-}, "Please specify a valid IBAN" );
+}, "Podaj prawidłowy numer IBAN" );
 
 $.validator.addMethod( "integer", function( value, element ) {
 	return this.optional( element ) || /^-?\d+$/.test( value );
@@ -674,23 +674,23 @@ $.validator.addMethod( "integer", function( value, element ) {
 
 $.validator.addMethod( "ipv4", function( value, element ) {
 	return this.optional( element ) || /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/i.test( value );
-}, "Please enter a valid IP v4 address." );
+}, "Wprowadź prawidłowy adres IPv4." );
 
 $.validator.addMethod( "ipv6", function( value, element ) {
 	return this.optional( element ) || /^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$/i.test( value );
-}, "Please enter a valid IP v6 address." );
+}, "Wprowadź prawidłowy adres IPv6." );
 
 $.validator.addMethod( "lettersonly", function( value, element ) {
 	return this.optional( element ) || /^[a-z]+$/i.test( value );
-}, "Letters only please" );
+}, "Proszę tylko o litery" );
 
 $.validator.addMethod( "letterswithbasicpunc", function( value, element ) {
 	return this.optional( element ) || /^[a-z\-.,()'"\s]+$/i.test( value );
-}, "Letters or punctuation only please" );
+}, "Proszę tylko literami lub znakami interpunkcyjnymi" );
 
 $.validator.addMethod( "mobileNL", function( value, element ) {
 	return this.optional( element ) || /^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)6((\s|\s?\-\s?)?[0-9]){8}$/.test( value );
-}, "Please specify a valid mobile number" );
+}, "Podaj prawidłowy numer telefonu komórkowego" );
 
 /* For UK phone functions, do the following server side processing:
  * Compare original input with this RegEx pattern:
@@ -704,11 +704,11 @@ $.validator.addMethod( "mobileUK", function( phone_number, element ) {
 	phone_number = phone_number.replace( /\(|\)|\s+|-/g, "" );
 	return this.optional( element ) || phone_number.length > 9 &&
 		phone_number.match( /^(?:(?:(?:00\s?|\+)44\s?|0)7(?:[1345789]\d{2}|624)\s?\d{3}\s?\d{3})$/ );
-}, "Please specify a valid mobile number" );
+}, "Podaj prawidłowy numer telefonu komórkowego" );
 
 $.validator.addMethod( "netmask", function( value, element ) {
     return this.optional( element ) || /^(254|252|248|240|224|192|128)\.0\.0\.0|255\.(254|252|248|240|224|192|128|0)\.0\.0|255\.255\.(254|252|248|240|224|192|128|0)\.0|255\.255\.255\.(254|252|248|240|224|192|128|0)/i.test( value );
-}, "Please enter a valid netmask." );
+}, "Wprowadź prawidłową maskę sieci." );
 
 /*
  * The NIE (Número de Identificación de Extranjero) is a Spanish tax identification number assigned by the Spanish
@@ -748,7 +748,7 @@ $.validator.addMethod( "nieES", function( value, element ) {
 
 	return validChars.charAt( parseInt( number, 10 ) % 23 ) === letter;
 
-}, "Please specify a valid NIE number." );
+}, "Podaj prawidłowy numer NIE." );
 
 /*
  * The Número de Identificación Fiscal ( NIF ) is the way tax identification used in Spain for individuals
@@ -779,7 +779,7 @@ $.validator.addMethod( "nifES", function( value, element ) {
 
 	return false;
 
-}, "Please specify a valid NIF number." );
+}, "Podaj prawidłowy numer NIF." );
 
 /*
  * Numer identyfikacji podatkowej ( NIP ) is the way tax identification used in Poland for companies
@@ -802,15 +802,15 @@ $.validator.addMethod( "nipPL", function( value ) {
 	var intControlNr = ( int2 === 10 ) ? 0 : int2;
 
 	return ( intControlNr === parseInt( value[ 9 ], 10 ) );
-}, "Please specify a valid NIP number." );
+}, "Podaj prawidłowy numer NIP." );
 
 $.validator.addMethod( "notEqualTo", function( value, element, param ) {
 	return this.optional( element ) || !$.validator.methods.equalTo.call( this, value, element, param );
-}, "Please enter a different value, values must not be the same." );
+}, "Wprowadź inną wartość, wartości nie mogą być takie same." );
 
 $.validator.addMethod( "nowhitespace", function( value, element ) {
 	return this.optional( element ) || /^\S+$/i.test( value );
-}, "No white space please" );
+}, "Bez spacji proszę" );
 
 /**
 * Return true if the field value matches the given format RegExp
@@ -840,7 +840,7 @@ $.validator.addMethod( "pattern", function( value, element, param ) {
  */
 $.validator.addMethod( "phoneNL", function( value, element ) {
 	return this.optional( element ) || /^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)[1-9]((\s|\s?\-\s?)?[0-9]){8}$/.test( value );
-}, "Please specify a valid phone number." );
+}, "Podaj prawidłowy numer telefonu." );
 
 /* For UK phone functions, do the following server side processing:
  * Compare original input with this RegEx pattern:
@@ -856,7 +856,7 @@ $.validator.addMethod( "phonesUK", function( phone_number, element ) {
 	phone_number = phone_number.replace( /\(|\)|\s+|-/g, "" );
 	return this.optional( element ) || phone_number.length > 9 &&
 		phone_number.match( /^(?:(?:(?:00\s?|\+)44\s?|0)(?:1\d{8,9}|[23]\d{9}|7(?:[1345789]\d{8}|624\d{6})))$/ );
-}, "Please specify a valid uk phone number" );
+}, "Podaj prawidłowy numer telefonu w Wielkiej Brytanii" );
 
 /* For UK phone functions, do the following server side processing:
  * Compare original input with this RegEx pattern:
@@ -870,7 +870,7 @@ $.validator.addMethod( "phoneUK", function( phone_number, element ) {
 	phone_number = phone_number.replace( /\(|\)|\s+|-/g, "" );
 	return this.optional( element ) || phone_number.length > 9 &&
 		phone_number.match( /^(?:(?:(?:00\s?|\+)44\s?)|(?:\(?0))(?:\d{2}\)?\s?\d{4}\s?\d{4}|\d{3}\)?\s?\d{3}\s?\d{3,4}|\d{4}\)?\s?(?:\d{5}|\d{3}\s?\d{3})|\d{5}\)?\s?\d{4,5})$/ );
-}, "Please specify a valid phone number" );
+}, "Podaj prawidłowy numer telefonu" );
 
 /**
  * Matches US phone number format
@@ -892,7 +892,7 @@ $.validator.addMethod( "phoneUS", function( phone_number, element ) {
 	phone_number = phone_number.replace( /\s+/g, "" );
 	return this.optional( element ) || phone_number.length > 9 &&
 		phone_number.match( /^(\+?1-?)?(\([2-9]([02-9]\d|1[02-9])\)|[2-9]([02-9]\d|1[02-9]))-?[2-9]([02-9]\d|1[02-9])-?\d{4}$/ );
-}, "Please specify a valid phone number" );
+}, "Podaj prawidłowy numer telefonu" );
 
 /*
 * Valida CEPs do brasileiros:
@@ -921,21 +921,21 @@ $.validator.addMethod( "postalcodeBR", function( cep_value, element ) {
  */
 $.validator.addMethod( "postalCodeCA", function( value, element ) {
 	return this.optional( element ) || /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ] *\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i.test( value );
-}, "Please specify a valid postal code" );
+}, "Podaj prawidłowy kod pocztowy" );
 
 /* Matches Italian postcode (CAP) */
 $.validator.addMethod( "postalcodeIT", function( value, element ) {
 	return this.optional( element ) || /^\d{5}$/.test( value );
-}, "Please specify a valid postal code" );
+}, "Podaj prawidłowy kod pocztowy" );
 
 $.validator.addMethod( "postalcodeNL", function( value, element ) {
 	return this.optional( element ) || /^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/.test( value );
-}, "Please specify a valid postal code" );
+}, "Podaj prawidłowy kod pocztowy" );
 
 // Matches UK postcode. Does not match to UK Channel Islands that have their own postcodes (non standard UK)
 $.validator.addMethod( "postcodeUK", function( value, element ) {
 	return this.optional( element ) || /^((([A-PR-UWYZ][0-9])|([A-PR-UWYZ][0-9][0-9])|([A-PR-UWYZ][A-HK-Y][0-9])|([A-PR-UWYZ][A-HK-Y][0-9][0-9])|([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY]))\s?([0-9][ABD-HJLNP-UW-Z]{2})|(GIR)\s?(0AA))$/i.test( value );
-}, "Please specify a valid UK postcode" );
+}, "Podaj prawidłowy kod pocztowy Wielkiej Brytanii" );
 
 /*
  * Lets you say "at least X inputs that match selector Y must be filled."
@@ -973,7 +973,7 @@ $.validator.addMethod( "require_from_group", function( value, element, options )
 		$fields.data( "being_validated", false );
 	}
 	return isValid;
-}, $.validator.format( "Please fill at least {0} of these fields." ) );
+}, $.validator.format( "Proszę wypełnić co najmniej {0} z tych pól." ) );
 
 /*
  * Lets you say "either at least X inputs that match selector Y must be filled,
@@ -1017,7 +1017,7 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
 		$fields.data( "being_validated", false );
 	}
 	return isValid;
-}, $.validator.format( "Please either skip these fields or fill at least {0} of them." ) );
+}, $.validator.format( "Pomiń te pola lub wypełnij co najmniej {0} z nich." ) );
 
 /* Validates US States and/or Territories by @jdforsythe
  * Can be case insensitive or require capitalization - default is case insensitive
@@ -1072,20 +1072,20 @@ $.validator.addMethod( "stateUS", function( value, element, options ) {
 
 	regex = caseSensitive ? new RegExp( regex ) : new RegExp( regex, "i" );
 	return this.optional( element ) || regex.test( value );
-}, "Please specify a valid state" );
+}, "Podaj prawidłowy stan" );
 
 // TODO check if value starts with <, otherwise don't try stripping anything
 $.validator.addMethod( "strippedminlength", function( value, element, param ) {
 	return $( value ).text().length >= param;
-}, $.validator.format( "Please enter at least {0} characters" ) );
+}, $.validator.format( "Wprowadź co najmniej {0} znaków" ) );
 
 $.validator.addMethod( "time", function( value, element ) {
 	return this.optional( element ) || /^([01]\d|2[0-3]|[0-9])(:[0-5]\d){1,2}$/.test( value );
-}, "Please enter a valid time, between 00:00 and 23:59" );
+}, "Wprowadź prawidłowy czas między 00:00 a 23:59" );
 
 $.validator.addMethod( "time12h", function( value, element ) {
 	return this.optional( element ) || /^((0?[1-9]|1[012])(:[0-5]\d){1,2}(\ ?[AP]M))$/i.test( value );
-}, "Please enter a valid time in 12-hour am/pm format" );
+}, "Wprowadź prawidłową godzinę w formacie 12-godzinnym am/pm" );
 
 // Same as url, but TLD is optional
 $.validator.addMethod( "url2", function( value, element ) {
@@ -1145,14 +1145,14 @@ $.validator.addMethod( "vinUS", function( v ) {
 		return true;
 	}
 	return false;
-}, "The specified vehicle identification number (VIN) is invalid." );
+}, "Podany numer identyfikacyjny pojazdu (VIN) jest nieprawidłowy." );
 
 $.validator.addMethod( "zipcodeUS", function( value, element ) {
 	return this.optional( element ) || /^\d{5}(-\d{4})?$/.test( value );
-}, "The specified US ZIP Code is invalid" );
+}, "Podany kod pocztowy w USA jest nieprawidłowy" );
 
 $.validator.addMethod( "ziprange", function( value, element ) {
 	return this.optional( element ) || /^90[2-5]\d\{2\}-\d{4}$/.test( value );
-}, "Your ZIP-code must be in the range 902xx-xxxx to 905xx-xxxx" );
+}, "Twój kod pocztowy musi mieścić się w zakresie od 902xx-xxxx do 905xx-xxxx" );
 return $;
 }));

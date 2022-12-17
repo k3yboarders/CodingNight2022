@@ -24,7 +24,7 @@ $.extend( $.fn, {
 		// If nothing is selected, return nothing; can't chain anyway
 		if ( !this.length ) {
 			if ( options && options.debug && window.console ) {
-				console.warn( "Nothing selected, can't validate, returning nothing." );
+				console.warn( "Nic nie wybrano, nie można zweryfikować, nic nie zwraca." );
 			}
 			return;
 		}
@@ -360,22 +360,22 @@ $.extend( $.validator, {
 	},
 
 	messages: {
-		required: "This field is required.",
-		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
-		equalTo: "Please enter the same value again.",
-		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
-		minlength: $.validator.format( "Please enter at least {0} characters." ),
-		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
-		range: $.validator.format( "Please enter a value between {0} and {1}." ),
-		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
-		min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
-		step: $.validator.format( "Please enter a multiple of {0}." )
+		required: "To pole jest wymagane.",
+		remote: "Proszę poprawić to pole.",
+		email: "Proszę wpisać aktualny adres e-mail.",
+		url: "Proszę wprowadzić poprawny adres URL.",
+		date: "Proszę wprowadź poprawną datę.",
+		dateISO: "Wprowadź prawidłową datę (ISO).",
+		number: "Proszę wprowadzić poprawny numer.",
+		digits: "Wprowadź tylko cyfry.",
+		equalTo: "Wprowadź ponownie tę samą wartość.",
+		maxlength: $.validator.format( "Wprowadź nie więcej niż {0} znaków." ),
+		minlength: $.validator.format( "Wprowadź co najmniej {0} znaków." ),
+		rangelength: $.validator.format( "Wprowadź wartość o długości od {0} do {1} znaków." ),
+		range: $.validator.format( "Wprowadź wartość między {0} a {1}." ),
+		max: $.validator.format( "Wprowadź wartość mniejszą lub równą {0}." ),
+		min: $.validator.format( "Wprowadź wartość większą lub równą {0}." ),
+		step: $.validator.format( "Wprowadź wielokrotność {0}." )
 	},
 
 	autoCreateRanges: false,
@@ -764,7 +764,7 @@ $.extend( $.validator, {
 				val = normalizer.call( element, val );
 
 				if ( typeof val !== "string" ) {
-					throw new TypeError( "The normalizer should return a string value." );
+					throw new TypeError( "Normalizator powinien zwrócić wartość ciągu." );
 				}
 
 				// Delete the normalizer from rules to avoid treating it as a pre-defined method.
@@ -795,10 +795,10 @@ $.extend( $.validator, {
 					}
 				} catch ( e ) {
 					if ( this.settings.debug && window.console ) {
-						console.log( "Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.", e );
+						console.log( "Wystąpił wyjątek podczas sprawdzania elementu " + element.id + ", sprawdź '" + rule.method + "' metodę.", e );
 					}
 					if ( e instanceof TypeError ) {
-						e.message += ".  Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.";
+						e.message += ".  Wystąpił wyjątek podczas sprawdzania elementu " + element.id + ", sprawdź '" + rule.method + "' metodę.";
 					}
 
 					throw e;
@@ -858,7 +858,7 @@ $.extend( $.validator, {
 					// 'title' is never undefined, so handle empty string as undefined
 					!this.settings.ignoreTitle && element.title || undefined,
 					$.validator.messages[ rule.method ],
-					"<strong>Warning: No message defined for " + element.name + "</strong>"
+					"<strong>Ostrzeżenie: Nie zdefiniowano wiadomości dla " + element.name + "</strong>"
 				),
 				theregex = /\$?\{(\d+)\}/g;
 			if ( typeof message === "function" ) {
@@ -1450,7 +1450,7 @@ $.extend( $.validator, {
 		// https://jqueryvalidation.org/step-method/
 		step: function( value, element, param ) {
 			var type = $( element ).attr( "type" ),
-				errorMessage = "Step attribute on input type " + type + " is not supported.",
+				errorMessage = "Atrybut kroku w typie danych wejściowych " + type + " nie jest obsługiwany.",
 				supportedTypes = [ "text", "number", "range" ],
 				re = new RegExp( "\\b" + type + "\\b" ),
 				notSupported = type && !re.test( supportedTypes.join() ),
