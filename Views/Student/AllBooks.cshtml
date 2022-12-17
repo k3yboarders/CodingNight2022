@@ -3,18 +3,23 @@
 @{
     ViewData["Title"] = "Wszystkie książki";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+    string[] Categories = {"Wybierz kategorię", "Tytuł", "Autor", "ISBN", "Gatunek", "Seria" };
 }
 <form asp-controller="Student" asp-action="AllBooks">
     <p>
         <select name="category">
-            <option value="1">Tytuł</option>
-            <option value="2">Autor</option>
-            <option value="3">ISBN</option>
-            <option value="4">Gatunek</option>
-            <option value="5">Seria</option>
+@for (int i = 0; i < Categories.Length; i++) {
+                @if (i == ViewBag.SelectedItem) {
+                    <option selected value="@i">@Categories[i]</option>
+                }
+                else {
+                    <option value="@i">@Categories[i]</option>
+                }
+}
+
         </select>
 
-        <input type="text" name="searchString" />
+        <input type="text" name="searchString" value="@ViewBag.searchString" />
         <input type="submit" value="Szukaj" />
     </p>
 </form>

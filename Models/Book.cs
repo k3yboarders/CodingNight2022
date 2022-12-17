@@ -7,10 +7,12 @@ namespace LibraryCodingNight.Models
     public class Book
     {   
         public int BookId { get; set; }
+        [Display(Name = "Tytuł")]
         public string Title { get; set; }
+        [Display(Name = "Wydawca")]
         public Publisher? Publisher { get; set; }
         public int PublisherId { get; set; }
-
+        [Display(Name = "Liczba stron")]
         [Column(TypeName = "smallint")]
         public int PageNumber { get; set; }
 
