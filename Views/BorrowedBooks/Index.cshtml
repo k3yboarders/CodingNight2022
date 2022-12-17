@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LibraryCodingNight.Models.BorrowedBook>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Wypożyczone książki";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                Imię i nazwisko
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Book)
@@ -32,7 +32,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Book.BookId)
