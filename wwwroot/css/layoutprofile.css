@@ -12,3 +12,9 @@ main {
     cursor: pointer; /* Add a mouse pointer on hover */
     padding: 15px; /* Some padding */
 }   
+
+@media all and (max-width: 1000px) {
+    #sidebarToggle {
+	display: none !important;
+    }  
+}
