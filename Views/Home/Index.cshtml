@@ -1,45 +1,60 @@
 ﻿@{
-    ViewData["Title"] = "Witaj przybyszu!";
+    ViewData["Title"] = "OTO ON!";
 }
 @section Links{
     <link rel="stylesheet" href="~/css/gradient.css" />
+    <link rel="stylesheet" href="~/css/bgimage.css" />
 }
 
-<header class="masthead">
-    <div class="container px-5">
-        <div class="row gx-5 align-items-center justify-content-around">
+<header class="masthead bg-image bg-blur">
+    <div class="container px-5 pt-3">
+        <div class="row gx-5 align-items-center">
             <div class="col-lg-6">
-                <div class="mb-5 mb-lg-0 text-center text-lg-start">
+                <div class="text-white mb-5 mb-lg-0 text-center text-lg-start">
                     <h1 class="display-1 fw-bold lh-1 mb-3">LibraryCN</h1>
-                    <p class="lead fw-normal text-muted mb-5">Zarządzanie biblioteką nigdy nie było łatwiejsze! Dzięki naszej nowoczesnej i wygodnej aplikacji webowej będziesz w stanie łatwo i szybko obsłużyć każdego czytelnika!</p>
+                    <p class="lead fw-normal fw-bold mb-5">Zarządzanie biblioteką nigdy nie było łatwiejsze! Dzięki naszej nowoczesnej i wygodnej aplikacji webowej będziesz w stanie łatwo i szybko obsłużyć każdego czytelnika!</p>
                 </div>
             </div>
-            <div class="col-lg-6 justify-content-center">
-                <img src="/assets/img/logo.png"/>
+            <div class="col-lg-6 d-flex justify-content-center">
+                <img src="/assets/img/LibraryCN.png"/>
             </div>
         </div>
     </div>
+    <aside class="text-center bg-sea-gradient py-5">
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-xl-8">
+                    <div class="h3 fs-2 fw-bold text-white mb-4">Nie możesz znieść brzydkich programów? <br /> Nie ma problemu! Rozwiązanie już tu jest!</div>
+                </div>
+            </div>
+        </div>
+    </aside>
 </header>
 
-<aside class="text-center bg-sea-gradient py-3">
-    <div class="container px-5">
-        <div class="row gx-5 justify-content-center">
-            <div class="col-xl-8">
-                <div class="h2 fs-1 text-white mb-4">Chcesz zobaczyć kod źródłowy? <br /> Nie ma problemu!</div>
-            </div>
-        </div>
-    </div>
-</aside>
 
-<section class="bg-light">
+<section class="bg-light" id="features">
     <div class="container p-5">
-        <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between d-flex flex-row-reverse">
-            <div class="col-12 col-lg-5">
+        <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between d-flex flex-row-reverse text-end">
+            <div class="col-8 col-lg-5">
                 <h2 class="display-4 fw-bolder lh-1 mb-4">Nowy poziom zarządzania biblioteką</h2>
                 <p class="lead fw-normal text-muted mb-5 mb-lg-0">Większość dotychczasowych aplikacji służących zarządzaniu biblioteką mimo swojej użyteczności, jest po prostu brzydka. Tutaj pojawia się LibraryCN! Łączy ogromną użyteczność i nieskazitelne piękno.</p>
             </div>
             <div class="col-8 col-md-6">
-                <div class="px-5 px-sm-0"><img class="img-fluid rounded-4" src="https://pixabay.com/get/g6c95b480a269e1a79701982197fc16f2151c1050396cbe1cdcd5fe90007692cd87e7347adfe339478860dcc5169ca340_640.jpg" alt="..." /></div>
+                <div class="px-5 px-sm-0"><img class="img-fluid rounded-4" src="~/assets/img/book.jpg"/></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-dark text-light" id="about-us">
+    <div class="container p-5">
+        <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+            <div class="col-12 col-lg-5">
+                <h2 class="display-4 fw-bolder lh-1 mb-4">Sprawdzeni twórcy</h2>
+                <p class="lead fw-normal text-muted mb-5 mb-lg-0">Jest to kolejne dzieło grupy k3yboarders, która w 2021 roku na wydarzeniu Coding Night zdobyła 2 miejsce za stworzoną przez siebie grę.</p>
+            </div>
+            <div class="col-8 col-md-6">
+                <div class="px-5 px-sm-0"><img class="img-fluid rounded-4" src="~/assets/img/k3yboarders.png" alt="..." /></div>
             </div>
         </div>
     </div>

@@ -1,3 +1,8 @@
 ﻿.bg-sea-gradient {
-    background: linear-gradient(90deg, rgba(0,56,99,0.5144258386948529) 0%, rgba(1,50,166,0.4864146342130602) 43%, rgba(0,126,204,0.4275911048012955) 100%);
+    background: rgb(1,89,157);
+    background: linear-gradient(90deg, rgba(1,89,157,.9) 0%, rgba(12,66,193,.9) 40%, rgba(88,28,195,.9) 60%, rgba(184,28,242,.9) 100%);
+}
+
+bg-blur {
+    backdrop-filter: blur(5px);
 }
