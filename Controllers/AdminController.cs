@@ -20,7 +20,7 @@ namespace LibraryCodingNight.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationUser = await UserManager.GetUserAsync(User);
-            if (applicationUser.RoleId == 1)
+            if (applicationUser.RoleId == 2)
             {
                 return View();
             }

@@ -57,24 +57,67 @@
                             </div>
                             Dashboard
                         </a>
+                            <a class="nav-link" asp-controller="Admin" asp-action="BorrowBook">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                Wypożycz książkę
+                            </a>
                         <div class="sb-sidenav-menu-heading">Funkcje</div>
-                            <a class="nav-link" asp-controller="Student" asp-action="AllBooks">
+                            <a class="nav-link" asp-controller="Admin" asp-action="GetBooks">
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-user"></i>
                                 </div>
                                 Wszystkie książki
                             </a>
-                            <a class="nav-link" asp-controller="Student" asp-action="SuggestBook">
+                            <a class="nav-link" asp-controller="Student" asp-action="GetStudents">
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-user"></i>
                                 </div>
     Uczniowie
                             </a>                  
-                            <a class="nav-link" asp-controller="Student" asp-action="Reservation">
+                            <a class="nav-link" asp-controller="Student" asp-action="GetSuggestedBooks">
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-user"></i>
                                 </div>
     Zaproponowane książki
+                            </a>
+                            <a class="nav-link" asp-controller="Student" asp-action="GetReservations">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                Rezerwacje
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Dodawanie</div>
+                            <a class="nav-link" asp-controller="Admin" asp-action="AddBook">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                Dodaj książke
+                            </a>
+                            <a class="nav-link" asp-controller="Student" asp-action="AddAuthor">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                Dodaj autora
+                            </a>
+                            <a class="nav-link" asp-controller="Student" asp-action="AddPublisher">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                Dodaj wydawnictwo
+                            </a>
+                                                        <a class="nav-link" asp-controller="Student" asp-action="AddGenre">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                Dodaj gatunek
+                            </a>
+                            <a class="nav-link" asp-controller="Student" asp-action="AddSerie">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                Dodaj serie
                             </a>
             </nav>
         </div>

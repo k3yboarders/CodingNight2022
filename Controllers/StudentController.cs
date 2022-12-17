@@ -20,16 +20,30 @@ namespace LibraryCodingNight.Controllers
             _context = context;
             UserManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 2)
+            {
+                return View();
+            }
+            else
+                return NotFound();
         }
         public async Task<IActionResult> AllBooks()
         {
 
             var applicationDbContext = _context.Book.Include(b => b.Genre).Include(b => b.Serie).Include(b => b.Publisher).Include(b => b.Author);
             ViewBag.Count = applicationDbContext.Count();
-            return View(await applicationDbContext.ToListAsync());
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 2)
+            {
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+                return NotFound();
+
         }
         public async Task<IActionResult> Details(int? id)
         {
@@ -92,9 +106,17 @@ namespace LibraryCodingNight.Controllers
 
             return View(await books.ToListAsync());
         }
-        public IActionResult SuggestBook()
+        public async Task<IActionResult> SuggestBook()
         {
-            return View();
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 2)
+            {
+                return View();
+            }
+            else
+                return NotFound();
+
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -111,7 +133,7 @@ namespace LibraryCodingNight.Controllers
         public async Task<IActionResult> Reservation()
         {
             var applicationUser = await UserManager.GetUserAsync(User);
-            if (applicationUser.RoleId == 1)
+            if (applicationUser.RoleId == 2)
             {
                 var applicationDbContext = _context.Reservation.Include(r => r.Book).Where(b => b.ApplicationUserId == applicationUser.Id).Where(b => b.IsActual == true);
                 return View(await applicationDbContext.ToListAsync());
@@ -136,7 +158,7 @@ namespace LibraryCodingNight.Controllers
             {
                 return NotFound();
             }
-            if (applicationUser.RoleId == 1)
+            if (applicationUser.RoleId == 2)
                 return View(reservation);
             else
                 return NotFound();
@@ -168,6 +190,17 @@ namespace LibraryCodingNight.Controllers
             }
 
             return View();
+        }
+        public async Task<IActionResult> BorrowedBooks()
+        {
+            var applicationUser = await UserManager.GetUserAsync(User);
+            if (applicationUser.RoleId == 2)
+            {
+                var applicationDbContext = _context.BorrowedBook.Include(b => b.Book);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+                return NotFound();
         }
     }
     
