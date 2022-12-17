@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LibraryCodingNight.Models.SuggestedBook>
 
 @{
-    ViewData["Title"] = "GetSuggestedBooks";
+    ViewData["Title"] = "Zdobądź zaproponowane książki";
     Layout = "_LayoutAdmin";
 }
 
@@ -29,8 +29,8 @@
                 @Html.DisplayFor(modelItem => item.SuggesteBookAuthor)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.SuggestedBookId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.SuggestedBookId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.SuggestedBookId">Edytuj</a> |
+                <a asp-action="Delete" asp-route-id="@item.SuggestedBookId">Usuń</a>
             </td>
         </tr>
 }

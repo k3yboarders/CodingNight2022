@@ -1,14 +1,14 @@
 ﻿@model LibraryCodingNight.Models.Genre
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Szczegóły";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Szczegóły</h1>
 
 <div>
-    <h4>Genre</h4>
+    <h4>Gatynek</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -20,6 +20,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.GenreId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.GenreId">Edytuj</a> |
+    <a asp-action="Index">Powrót do listy</a>
 </div>

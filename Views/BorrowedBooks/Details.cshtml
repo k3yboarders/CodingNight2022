@@ -1,14 +1,19 @@
 ﻿@model LibraryCodingNight.Models.BorrowedBook
 
 @{
+<<<<<<< HEAD
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+=======
+    ViewData["Title"] = "Szczegóły";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+>>>>>>> ae22dcf3fd9bfab46e81952b099c359a4d839c53
 }
 
-<h1>Details</h1>
+<h1>Szczegóły</h1>
 
 <div>
-    <h4>BorrowedBook</h4>
+    <h4>Pożyczona książka</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -38,6 +43,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.BorrowedBookId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.BorrowedBookId">Edytuj</a> |
+    <a asp-action="Index">Powrót do listy</a>
 </div>
