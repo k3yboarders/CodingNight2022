@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<LibraryCodingNight.Models.SuggestedBook>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Zasugerowane książki";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Dodaj nową</a>
 </p>
 <table class="table">
     <thead>
@@ -32,9 +32,9 @@
                 @Html.DisplayFor(modelItem => item.SuggesteBookAuthor)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.SuggestedBookId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SuggestedBookId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SuggestedBookId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.SuggestedBookId">Edytuj</a> |
+                <a asp-action="Details" asp-route-id="@item.SuggestedBookId">Szczegóły</a> |
+                <a asp-action="Delete" asp-route-id="@item.SuggestedBookId">Usuń</a>
             </td>
         </tr>
 }
